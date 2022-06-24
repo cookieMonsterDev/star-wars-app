@@ -1,11 +1,13 @@
 import React from 'react';
-import { getData } from './typescript/getData'
+import { getData } from './typescript/getData';
+import { NavBar} from './components/navBar/NavBar';
+import { WelcomePage } from './components/welcomePage/welcomePage';
 
 
 function App() {
   return (
     <div>
-      <button onClick={() => getData(5, 1)}>Star Wars</button>
+      <WelcomePage />
     </div>
   );
 }
