@@ -1,13 +1,13 @@
 import React from 'react';
 import { getData } from './typescript/getData';
 import { NavBar} from './components/navBar/NavBar';
-import { WelcomePage } from './components/welcomePage/welcomePage';
+import { Test } from './components/slider/slider';
 
 
 function App() {
   return (
     <div>
-      <WelcomePage />
+      <Test />
     </div>
   );
 }
