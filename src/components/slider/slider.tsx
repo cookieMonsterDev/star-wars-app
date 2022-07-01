@@ -23,41 +23,51 @@ const Form = styled.div`
   background-color: orange;
 `;
 
-const Data = [1,2,3,4,5];
+const Data = [
+  {
+    id: '1'
+  },
+  {
+    id: '2'
+  },
+  {
+    id: '3'
+  },
+  {
+    id: '4'
+  },
+  {
+    id: '5'
+  }
+];
 
-console.log(`arr length ${Data.length}`)
+
 
 export const Slider = () => {
 
-  const [slide, setSlide] = useState(0)
+  const [slide, setSlide] = useState(0);
 
-
-  const NextSlide = () => {
-    slide === Data.length - 1
-    ? setSlide(0)
-    : setSlide(slide + 1);
+  const nextSlide = () => {
+    setSlide( slide === Data.length - 1 ? 0 : slide + 1);
   };
 
-  const PrevSlide = () => {
-    slide === 0
-    ? setSlide(Data.length - 1)
-    : setSlide(slide - 1)
+  const prevSlide = () => {
+    setSlide( slide === 0 ? Data.length - 1 : slide - 1);
   };
 
+  console.log(slide);
 
   return (
     <Container>
-      <button onClick={PrevSlide}> Prev </button>
-            <Form>
-              { slide === 0 ? Data[Data.length - 1] : Data[slide - 1]}
-            </Form>
-            <Form>
-              {Data[slide]}
-            </Form>
-            <Form>
-              { slide === Data.length - 1 ? Data[0] : Data[slide + 1]}
-            </Form>
-      <button onClick={NextSlide}> Next </button>
+      <button onClick={prevSlide}> Prev </button>
+        { Data.map((sth, index) => {
+          return (
+          <div className={index === slide ? 'slider active' : 'slide' } key={index}>
+            { index === slide && (<Form>{ sth.id }</Form>)}
+          </div>
+    
+        )})}
+      <button onClick={nextSlide}> Next </button>
     </Container>
   )  
-}
+};
