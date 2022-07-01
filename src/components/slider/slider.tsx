@@ -1,61 +1,63 @@
-import React from 'react';
-import Slider from 'react-slick';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
   margin: auto;
   width: 50em;
-  height: 10em;
-`;
-
-const StyledSlider = styled(Slider)`
-  .slick-list {
-    padding: 0 !important;
-  }
+  height: 30em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
 `;
 
 const Form = styled.div`
-  width: 40em;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  width: 10em;
   height: 20em;
   border-width: 2em;
   border-color: black;
   background-color: orange;
 `;
 
-const Data = [1,2,3,4,5,6,7,8,9];
+const Data = [1,2,3,4,5];
 
-export const Test = () => {
+console.log(`arr length ${Data.length}`)
 
-  const settings = {
-    dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
+export const Slider = () => {
+
+  const [slide, setSlide] = useState(0)
+
+
+  const NextSlide = () => {
+    slide === Data.length - 1
+    ? setSlide(0)
+    : setSlide(slide + 1);
   };
+
+  const PrevSlide = () => {
+    slide === 0
+    ? setSlide(Data.length - 1)
+    : setSlide(slide - 1)
+  };
+
 
   return (
     <Container>
-      <StyledSlider {...settings}>
-        <Form>
-          <h3>1</h3>
-        </Form>
-        <Form>
-          <h3>2</h3>
-        </Form>
-        <Form>
-          <h3>3</h3>
-        </Form>
-        <Form>
-          <h3>4</h3>
-        </Form>
-        <Form>
-          <h3>5</h3>
-        </Form>
-        <Form>
-          <h3>6</h3>
-        </Form>
-      </StyledSlider>
+      <button onClick={PrevSlide}> Prev </button>
+            <Form>
+              { slide === 0 ? Data[Data.length - 1] : Data[slide - 1]}
+            </Form>
+            <Form>
+              {Data[slide]}
+            </Form>
+            <Form>
+              { slide === Data.length - 1 ? Data[0] : Data[slide + 1]}
+            </Form>
+      <button onClick={NextSlide}> Next </button>
     </Container>
-  )
+  )  
 }
