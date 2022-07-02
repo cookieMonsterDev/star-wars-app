@@ -1,24 +1,55 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const Container = styled.div`
-  position: relative;
-  height: 30em;
+  height: 60em;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const IMG = styled.img`
-  width: 300px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
   border-style: solid;
   border-color: black;
   border-width: 0.2em;
 `;
 
-const Slide = styled.div`
+const animation = keyframes`
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    topacity: 1;
+  }
+`;
+
+const MainSlide = styled.div`
+  width: 35em;
+  height: 40em;
+  z-index: 1;
+  animation: ${animation} 0.5s;
+`;
+
+const RightSlide = styled.div`
+  position: relative;
+  width: 25em;
+  height: 34em;
+  opacity: 0.5;
+  right: 5em;
+  animation: ${animation} 0.5s;
+`; 
+
+const LeftSlide = styled.div`
+  position: relative; 
+  width: 25em;
+  height: 34em;
+  opacity: 0.5;
+  left: 5em;
+  animation: ${animation} 0.5s;
 `;
 
 
@@ -63,37 +94,36 @@ export const Slider = () => {
     <Container>
       <button onClick={prevSlide}> Prev </button>
 
-
       { Data.map((sth, index) => {
           return ( 
             <>
-              <Slide>
-                { (slide === 0 
-                  ? index === Data.length - 1 
-                  : index === slide - 1) 
-                  && (<IMG src={sth.image} />)}
-              </Slide>
+              { (slide === 0 
+                ? index === Data.length - 1 
+                : index === slide - 1) 
+                && (<LeftSlide onClick={prevSlide}>
+                      <IMG src={sth.image} />
+                    </LeftSlide>)}
             </>
         )})};
 
         { Data.map((sth, index) => {
           return ( 
             <>
-              <Slide>
-                { index === slide && (<IMG src={sth.image} />)}                
-              </Slide>
+              { index === slide && (<MainSlide>
+                <IMG src={sth.image} />
+              </MainSlide>)}                
             </>
         )})};
 
         { Data.map((sth, index) => {
           return ( 
             <>
-              <Slide>
-                { (slide === Data.length - 1 
-                  ? index === 0 
-                  : index === slide + 1) 
-                  && (<IMG src={sth.image} />)}                
-              </Slide>
+              { (slide === Data.length - 1 
+                ? index === 0 
+                : index === slide + 1) 
+                && (<RightSlide onClick={nextSlide}>
+                      <IMG src={sth.image} />
+                    </RightSlide>)}                
             </>
         )})};
 
