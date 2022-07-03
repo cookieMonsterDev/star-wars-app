@@ -9,7 +9,7 @@ interface CardProps {
 
 const Container = styled.div`
   margin: auto;
-  width: 50em;
+  width: 100em;
   height: 50em;
   margin: auto;
   justify-content: center;
@@ -121,13 +121,23 @@ export const Slider = () => {
           if (i === index) {
             isActive = true;
           } else if (i === indexRight) {
-            isRight = true
+            isRight = true;
           } else if (i === indexLeft) {
-            isLeft = true
+            isLeft = true;
+          }
+
+          const Click = () => {
+            if (i === indexRight) {
+              return nextSlide();
+            } 
+            else if (i === indexLeft) {
+              return prevSlide();
+            }
           }
 
           return (
             <Card
+              onClick={Click}
               isActive={isActive}
               isRight={isRight}
               isLeft={isLeft}
