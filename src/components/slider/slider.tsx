@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-import './CSS.css'
+import { useState } from 'react';
+import styled, { css } from 'styled-components';
+
+interface CardProps {
+  isActive?: boolean,
+  isLeft?: boolean,
+  isRight?: boolean
+};
 
 const Container = styled.div`
   margin: auto;
@@ -9,7 +14,49 @@ const Container = styled.div`
   margin: auto;
   justify-content: center;
   align-items: center;
-`
+`;
+
+const Carousel = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+
+const Card = styled.img<CardProps>`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 350px;
+  height: 525px;
+  object-fit: cover;
+  cursor: pointer;
+  z-index: 0;
+  opacity: 0;
+
+  transition: 500ms;
+
+  ${({isActive}) => isActive && css`
+    opacity: 1;
+    transform: scale(1);
+    z-index: 99;
+  `}
+
+  ${({isLeft}) => isLeft && css`
+    transform: translateX(-125%) scale(0.8);
+    transition: 500ms;
+    opacity: 0.3;
+  `}
+
+  ${({isRight}) => isRight && css`
+    transform: translateX(125%) scale(0.8);
+    transition: 500ms;
+    opacity: 0.3;
+  `}
+`;
+
 
 const Data = [
   {
@@ -39,8 +86,6 @@ const Data = [
   }
 ];
 
-
-
 export const Slider = () => {
 
   const [index, setIndex] = useState(0);
@@ -52,7 +97,6 @@ export const Slider = () => {
     return result >= 0 ? result : result + m;
   };
 
-
   const nextSlide = () => {
     setIndex( index === Data.length - 1 ? 0 : index + 1);
   };
@@ -61,39 +105,40 @@ export const Slider = () => {
     setIndex( index === 0 ? Data.length - 1 : index - 1);
   };
 
-
   return (
     <>
       <button onClick={prevSlide}> Prev </button>
       <button onClick={nextSlide}> Next </button>
     <Container>
-    <div className="carousel">
+    <Carousel>
         {Data.map((item, i) => {
           const indexLeft = mod(index - 1, Data.length);
           const indexRight = mod(index + 1, Data.length);
-
-          let className = "card";
+          let isActive
+          let isRight
+          let isLeft
 
           if (i === index) {
-            className = "card card--active";
+            isActive = true;
           } else if (i === indexRight) {
-            className = "card card--right";
+            isRight = true
           } else if (i === indexLeft) {
-            className = "card card--left";
-          } else className = "card";
+            isLeft = true
+          }
 
           return (
-            <img
+            <Card
+              isActive={isActive}
+              isRight={isRight}
+              isLeft={isLeft}
               key={item.id}
-              className={className}
               src={item.image}
-              alt="Comic"
-            ></img>
+              alt="Img"
+            ></Card>
           );
         })}
-      </div>
+      </Carousel>
     </Container>
-    
     </>
   )  
 };
