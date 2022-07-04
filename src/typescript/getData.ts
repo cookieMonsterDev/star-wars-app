@@ -19,10 +19,13 @@ export const Resources: Resources = {
   planets: 'planets',
 }; 
 
-export const getData = (page: any, index: number) => {
+export const getData = (page: number, index: number) => {
   const URL = `${BaseURL}${Object.keys(Resources)[page]}/${index}`;
-  fetch(URL)
-    .then(response => {
-      return response.json();
-  }).then(json => console.log(json));
+  return fetch(URL)
+    .then(response => response.json());
 };
+
+// (async() => {
+//   const response = await getData(1, 1);
+//   console.log(response);
+// })();
