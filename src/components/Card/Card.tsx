@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { getData } from '../../typescript/getData';
+import { Person } from '../../typescript/modules';
+
 
 const Container = styled.div`
   display: flex;
@@ -9,19 +11,10 @@ const Container = styled.div`
   top: 10em; 
   width: 40em;
   height: 50em;
+  flex-direction: column;
 
   background-color: gray;
 `;
-
-// const A = getData(1, 1)
-
-// console.log(A)
-let A: any
-
-(async () => {
-  const response = await getData(0, 1);
-  return A = response;
-})();
 
 interface CardProps {
   chapter?: string,
@@ -30,34 +23,29 @@ interface CardProps {
 
 export const Card = (props: CardProps) => {
 
+const [people, setPeople] = useState([]);
+const [films, setFilms] = useState([]);
+const [starships, setStarships] = useState([]);
+const [vehicles, setVehicles] = useState([]);
+const [species, setSpecies] = useState([]);
+const [planets, setPlanets] = useState([]);
 
 useEffect(() => {
   async function fetchPeople() {
-    let data = await getData(0, 1); // need to change
-    return data
+    const Data = await getData(0);
+    setPeople(Data);
   }
 
-  // async function fetchFilms() {
-  //   let data = await getData(0, 1); // need to change
-  // }
-
-  // async function fetchStarships() {
-  //   let data = await getData(0, 1); // need to change
-  // }
-
-  // async function fetchVehicles() {
-  //   let data = await getData(0, 1); // need to change
-  // }
-
-  // async function fetchpPanets() {
-  //   let data = await getData(0, 1); // need to change
-  // }
-
+  fetchPeople();
 },[])
+
+console.log(people)
 
   return (
     <Container>
-      <h1>{ A.name }</h1>
+      { people.map((item: Person, key: number) => {
+        return <li key={key}>{item.name}</li>
+      })}
     </Container>
   );
 }

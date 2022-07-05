@@ -1,3 +1,4 @@
+import console from "console";
 
 const BaseURL = 'https://swapi.dev/api/'
 
@@ -19,13 +20,19 @@ export const Resources: Resources = {
   planets: 'planets',
 }; 
 
-export const getData = (page: number, index: number) => {
-  const URL = `${BaseURL}${Object.keys(Resources)[page]}/${index}`;
-  return fetch(URL)
-    .then(response => response.json());
+export const getData = async (page: number) => {
+  const URL = `${BaseURL}${Object.keys(Resources)[page]}/`;
+  const response = await fetch(URL);
+  const data = await response.json();
+  return data.results
 };
 
-// (async() => {
-//   const response = await getData(1, 1);
-//   console.log(response);
-// })();
+
+// export const Data = async () => {
+//   let response = await fetch("https://swapi.dev/api/people/1");
+//   if (response.ok) {
+//     let result = await response.json();
+//     return result
+//   }
+//   return response
+// }
