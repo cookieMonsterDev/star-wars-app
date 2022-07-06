@@ -1,15 +1,20 @@
 import React from 'react';
 import { NavBar} from './components/NavBar/NavBar';
 import { Slider } from './components/Slider/slider';
-import { Card } from './components/Card/Card';
+import styled from 'styled-components';
 
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function App() {
   return (
-    <div>
-      {/* <Slider /> */}
-      <Card></Card>
-    </div>
+    <Wrapper>
+      <Slider />
+    </Wrapper>
   );
 }
 
