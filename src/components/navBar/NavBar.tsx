@@ -1,65 +1,98 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  background-color: black;
+const Container = styled.div`
+  height: 5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #191919;
+
+  font-family: Avenir, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 2em;
 `;
 
 const Logo = styled.div`
-  margin: auto;
-  width: 20em;
-  height: 20em;
+  position: relerive;
+  margin-left: 2em;
+  width: 3em;
+  height: 3em;
   justify-content: center;
   align-items: center;
   display: flex;
 
   border-style: solid;
-  border-width: 1.3em;
+  border-width: 0.2em;
   border-radius: 25%;
   border-color: yellow;
-
-  span:nth-child(1) {
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-  
-    
-    color: yellow;
-    font-size: 6em;
-    font-weight: 800;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  span:nth-child(2) {
-    position: relerive;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    z-index: 10;
-
-    color: red;
-  }
 `;
 
+const Data = [
+  {
+    title: 'home',
+    url: '#',
+  },
+  {
+    title: 'people',
+    url: '#',
+  },
+  {
+    title: 'films',
+    url: '#',
+  },
+  {
+    title: 'starships',
+    url: '#',
+  },
+  {
+    title: 'vehicles',
+    url: '#',
+  },
+  {
+    title: 'species',
+    url: '#',
+  },
+  {
+    title: 'planets',
+    url: '#',
+  }
+];
+
+
+
+const Page = styled.ul`
+  margin-right: 2em;
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  grid-gap: 1.5em;
+  list-style-type: none;
+  text-align: center;
+  justify-content: end;
+
+  > li > a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #FFE81F;
+  }
+`
 
 export const NavBar = () => {
 
   return (
-    <Wrapper>
+    <Container>
       <Logo>
-        <span>Star Wars</span>
-        <span>API</span>
+
       </Logo>
-    </Wrapper>
+      <Page>
+        { Data.map((item, key) => {return (
+          <li key={key}>
+            <a href={item.url}>
+              {item.title}
+            </a>
+          </li>
+        )})}
+      </Page>
+    </Container>
   )
 };
