@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 function App() {
   return (
     <Wrapper>
-      <Slider />
+      <Slider cardTemplate={'Person'}/>
     </Wrapper>
   );
 }

@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { getData } from '../../typescript/getData';
-import { Person } from '../../typescript/modules';
-import { NCard } from '../Card/Card';
+import { Card, CardProps } from '../Card/Card';
 
-interface SlideProps {
+interface SlideProps  {
+  sliderType?: string,
   isActive?: boolean,
   isLeft?: boolean,
-  isRight?: boolean
+  isRight?: boolean,
+
+  cardTemplate?: string
 };
+
+// Need to create different sliders for {sliderType}
 
 const Container = styled.div`
   margin: auto;
@@ -32,8 +36,8 @@ const Slide = styled.div<SlideProps>`
   bottom: 0;
   left: 0;
   margin: auto;
-  width: 350px;
-  height: 525px;
+  width: 25em;
+  height: 35em;
   object-fit: cover;
   cursor: pointer;
   z-index: 0;
@@ -60,7 +64,7 @@ const Slide = styled.div<SlideProps>`
   `}
 `;
 
-export const Slider = () => {
+export const Slider = (props: SlideProps) => {
 
   const [index, setIndex] = useState(0);
   const [data, setData] = useState([]);
@@ -95,7 +99,7 @@ export const Slider = () => {
       <button onClick={nextSlide}> Next </button> */}
     <Container>
     <Carousel>
-        {data.map((item: Person, i) => {
+        {data.map((item: CardProps, i) => {
           const indexLeft = mod(index - 1, data.length);
           const indexRight = mod(index + 1, data.length);
           let isActive
@@ -127,8 +131,11 @@ export const Slider = () => {
               isLeft={isLeft}
               // key={index + "qwerty"}
             >
-              <NCard 
+              <Card
+                cardTemplate={props.cardTemplate} 
                 name={item.name}
+                created={item.created} 
+                edited={item.edited}
               />
             </Slide>
           );
