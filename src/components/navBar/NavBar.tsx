@@ -77,7 +77,7 @@ const Page = styled.ul`
   }
 `
 
-export const NavBar = () => {
+const NavBar = () => {
 
   return (
     <Container>
@@ -96,3 +96,5 @@ export const NavBar = () => {
     </Container>
   )
 };
+
+export default NavBar
