@@ -19,6 +19,7 @@ const Clock = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  font-size: 2em;
 `;
 
 const Logo = styled.div`
@@ -40,21 +41,27 @@ const Info = styled.div`
   height: 100%;
 `;
 
+
 const InfoBar = () => {
 
-  const [clock, setClock] = useState('');
+  const [time, setTime] = useState('');
 
   useEffect(() => {
+
     setInterval(() => {
-      const Time: Date = new Date();
-      setClock(Time.toTimeString());
-    }, 1000)
-  }, [])
+      const CurrentTime = new Date().toLocaleString('en-US', 
+      { hour12: false, hour: 'numeric', minute: 'numeric', second: 'numeric' })
+
+      setTime(CurrentTime)
+
+    }, 1000);
+
+  }, []);
 
   return (
     <Container>
       <Clock>
-        <a>{clock}</a>
+        <a>{time}</a>
       </Clock>
       <Logo>
         <a>Star Wars</a>
