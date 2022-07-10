@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -28,39 +29,6 @@ const Logo = styled.div`
   border-color: yellow;
 `;
 
-const Data = [
-  {
-    title: 'home',
-    url: '#',
-  },
-  {
-    title: 'people',
-    url: '#',
-  },
-  {
-    title: 'films',
-    url: '#',
-  },
-  {
-    title: 'starships',
-    url: '#',
-  },
-  {
-    title: 'vehicles',
-    url: '#',
-  },
-  {
-    title: 'species',
-    url: '#',
-  },
-  {
-    title: 'planets',
-    url: '#',
-  }
-];
-
-
-
 const Page = styled.ul`
   margin-right: 2em;
   display: grid;
@@ -75,7 +43,38 @@ const Page = styled.ul`
     text-transform: uppercase;
     color: #FFE81F;
   }
-`
+`;
+
+const Parts = [
+  {
+    title: 'home',
+    url: '/',
+  },
+  {
+    title: 'people',
+    url: '/people',
+  },
+  {
+    title: 'films',
+    url: '/films',
+  },
+  {
+    title: 'starships',
+    url: '/starships',
+  },
+  {
+    title: 'vehicles',
+    url: '/vehicles',
+  },
+  {
+    title: 'species',
+    url: '/species',
+  },
+  {
+    title: 'planets',
+    url: '/planets',
+  }
+];
 
 const NavBar = () => {
 
@@ -85,11 +84,11 @@ const NavBar = () => {
 
       </Logo>
       <Page>
-        { Data.map((item, key) => {return (
+        { Parts.map((item, key) => {return (
           <li key={key}>
-            <a href={item.url}>
+            <Link to={item.url}>
               {item.title}
-            </a>
+            </Link>
           </li>
         )})}
       </Page>

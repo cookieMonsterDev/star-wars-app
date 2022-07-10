@@ -1,3 +1,9 @@
+ export interface Global {
+	url: string,
+	created: Date, 
+  edited: Date, 
+	
+ }
 
 export interface Person {
   name: string,
@@ -13,9 +19,7 @@ export interface Person {
   species: string[], 
   vehicles: string[], 
   starships: string[], 
-  created: Date, 
-  edited: Date, 
-  url: string
+
 };
 
 export interface Film {
@@ -30,9 +34,7 @@ export interface Film {
 	starships: string[],
 	vehicles: string[],
 	species: [],
-	created: Date,
-	edited: Date,
-	url: string
+	
 };
 
 export interface Starship {
@@ -51,9 +53,7 @@ export interface Starship {
 	starship_class: string,
 	pilots: string[],
 	films: string[],
-	created: Date,
-	edited: Date,
-  url: string
+	
 };
 
 export interface Vehicle {
@@ -70,9 +70,7 @@ export interface Vehicle {
 	vehicle_class: string,
 	pilots: string[],
 	films: string[],
-	created: Date,
-	edited: Date,
-	url: string
+	
 };
 
 export interface Specie {
@@ -88,9 +86,7 @@ export interface Specie {
 	language: string,
 	people: string[],
 	films: string[],
-	created: Date,
-	edited: Date,
-	url: string
+
 };
 
 export interface Planet {
@@ -105,7 +101,5 @@ export interface Planet {
 	population: string,
 	residents: string[],
 	films: string[],
-	created: Date,
-	edited: Date,
-	url: string
+
 };
