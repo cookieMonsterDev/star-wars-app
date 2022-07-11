@@ -20,6 +20,7 @@ const Clock = styled.div`
   width: 100%;
   height: 100%;
   font-size: 2em;
+  font-family: 'Invisible', sans-serif;
 `;
 
 const Logo = styled.div`
@@ -29,6 +30,8 @@ const Logo = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  font-size: 2em;
+  font-family: 'Distant Galaxy', sans-serif;
 `;
 
 const Info = styled.div`
@@ -39,6 +42,8 @@ const Info = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  font-size: 2em;
+  font-family: 'Invisible', sans-serif;
 `;
 
 

@@ -4,14 +4,11 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   height: 5em;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #191919;
-
-  font-family: Avenir, Arial, sans-serif;
-  font-weight: 600;
-  font-size: 2em;
 `;
 
 const Logo = styled.div`
@@ -37,6 +34,9 @@ const Page = styled.ul`
   list-style-type: none;
   text-align: center;
   justify-content: end;
+  font-weight: 600;
+  font-size: 2em;
+  font-family: 'Invisible', sans-serif;
 
   > li > a {
     text-decoration: none;

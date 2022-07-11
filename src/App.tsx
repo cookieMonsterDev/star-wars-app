@@ -17,16 +17,26 @@ const Wrapper = styled.div`
   margin: auto;
 `;
 
+const A = styled.div`
+  height: 100%;
+`
+
 function App() {
   return (
       <Router>
         <Wrapper>
           <NavBar />
-          <Switch>
+          <A><Switch>
             <Route exact path="/" component={Slider}/>
             <Route path="/people" component={People}/>
             <Route path="/films" component={Films}/>
+            <Route path="/starships" component={Films}/>
+            <Route path="/vehicles" component={Films}/>
+            <Route path="/species" component={Films}/>
+            <Route path="/planets" component={Films}/>
           </Switch>
+          </A>
+          
           <InfoBar />
         </Wrapper>
       </Router>
