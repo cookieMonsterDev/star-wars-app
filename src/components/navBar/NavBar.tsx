@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 5em;
+  height: 7em;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -35,7 +35,7 @@ const Page = styled.ul`
   text-align: center;
   justify-content: end;
   font-weight: 600;
-  font-size: 2em;
+  font-size: 2.5em;
   font-family: 'Invisible', sans-serif;
 
   > li > a {

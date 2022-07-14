@@ -6,6 +6,7 @@ import { Slider } from './components/Slider/slider';
 import People from './components/People/People';
 import Films from './components/Films/Films';
 import InfoBar from './components/InfoBar/InfoBar';
+import img from './assets/images/space.jpg';
 
 
 const Wrapper = styled.div`
@@ -15,18 +16,19 @@ const Wrapper = styled.div`
   bottom: 0;
   left: 0;
   margin: auto;
-`;
 
-const A = styled.div`
-  height: 100%;
-`
+  background-image: url(${img});
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 
 function App() {
   return (
       <Router>
         <Wrapper>
           <NavBar />
-          <A><Switch>
+          <Switch>
             <Route exact path="/" component={Slider}/>
             <Route path="/people" component={People}/>
             <Route path="/films" component={Films}/>
@@ -35,8 +37,6 @@ function App() {
             <Route path="/species" component={Films}/>
             <Route path="/planets" component={Films}/>
           </Switch>
-          </A>
-          
           <InfoBar />
         </Wrapper>
       </Router>

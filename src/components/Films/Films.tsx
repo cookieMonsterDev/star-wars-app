@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getData, Responce } from '../../typescript/getData';
+import FilmPoster from './componets/FilmPoster';
 
 const Container = styled.div`
-  height: 100%;
-  
-  background-color: orange;
-`;
-
-const Card = styled.div`
-  width: 10em;
-  height: 10em;
-  display: flex;
+  position: absolute;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: green;
-`; 
+  overflow: hidden;
+  width: 100%;
+  top: 7em;
+  bottom: 4em;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 2em;
+  align-content: center;
+`;
 
 const Films = () => {
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     async function fetchPeople() {
@@ -29,15 +27,13 @@ const Films = () => {
     }
   
     fetchPeople();
-  }, [data])
-  
+  }, [])
 
   return (
     <Container>
-      {/* { data.map((item: Responce, key) => {
-        return (<Card>{item.title}</Card>)
-      })} */}
-      
+      { data.map((item: Responce, key: number) => {
+        return (<FilmPoster item={item} key={key}/>)
+      })}
     </Container>
   );
 }
