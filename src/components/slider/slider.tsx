@@ -99,7 +99,7 @@ export const Slider = (props: SlideProps) => {
       <button onClick={nextSlide}> Next </button> */}
     <Container>
     <Carousel>
-        {data.map((item: CardProps, i) => {
+        {data.map((item: CardProps, i: number) => {
           const indexLeft = mod(index - 1, data.length);
           const indexRight = mod(index + 1, data.length);
           let isActive

@@ -5,15 +5,16 @@ import FilmPoster from './componets/FilmPoster';
 
 const Container = styled.div`
   position: absolute;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
   justify-content: center;
-  overflow: hidden;
+  align-items: center;
   width: 100%;
   top: 7em;
   bottom: 4em;
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-gap: 2em;
-  align-content: center;
 `;
 
 const Films = () => {

@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 7em;
-  width: 100%;
+  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 7em;
+  width: 100%;
   background-color: #191919;
 `;
 
