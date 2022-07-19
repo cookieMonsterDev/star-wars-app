@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
-import { Slider } from './components/Slider/slider';
+import Home from './components/Home/Home';
 import People from './components/People/People';
 import Films from './components/Films/Films';
 import InfoBar from './components/InfoBar/InfoBar';
 import img from './assets/images/space.jpg';
+import { getDevice } from './typescript/DeviceDetection/test';
+import StarshipsPage from './components/Starships/StarshipsPage';
 
 
 const Wrapper = styled.div`
@@ -24,15 +26,18 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+
+  getDevice();
+
   return (
       <Router>
         <Wrapper>
           <NavBar />
           <Switch>
-            <Route exact path="/" component={Slider}/>
+            <Route exact path="/" component={Home}/>
             <Route path="/people" component={People}/>
             <Route path="/films" component={Films}/>
-            <Route path="/starships" component={Films}/>
+            <Route path="/starships" component={StarshipsPage}/>
             <Route path="/vehicles" component={Films}/>
             <Route path="/species" component={Films}/>
             <Route path="/planets" component={Films}/>

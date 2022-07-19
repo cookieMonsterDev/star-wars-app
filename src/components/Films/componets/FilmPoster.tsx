@@ -16,7 +16,7 @@ interface CardProps {
 
 interface OverlayProps {
   onClick?: () => void,
-  isShow?: boolean,
+  isShow?: boolean
 };
 
 const Card = styled.div<CardProps>`
@@ -30,30 +30,60 @@ const Card = styled.div<CardProps>`
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 1em;
+  transition: all 500ms;
+
+  > h1 {
+    color: #FFE81F;
+    font-weight: 600;
+    font-size: 2.5em;
+    font-family: 'Distant Galaxy', sans-serif;
+    text-shadow: -5px 0 black;
+  }
   
   ${({expanded}) => expanded && css`
     opacity: 0;
+    transition: all 500ms;
   ` }
 `;
 
 const ActiveCard = styled.div<CardProps>`
   position: absolute;
-  display: none;
+  display: flex;
   width: 40em;
   height: 25em;
   top: ${({offsetTop}) => offsetTop}px;
   left: ${({offsetLeft}) => offsetLeft}px;
   border-radius: 1em;
+  opacity: 0;
   transition: all 500ms;
+ 
 
   ${({expanded}) => expanded && css`
     z-index: 30;
     display: flex;
+    flex-direction: column;
+    
+    align-items: center;
     top: 50%;
     left: 50%;
+    opacity: 1;
     transform: translate(-50%, -50%) scale(2.2, 2.16);
     background-color: rgba(255, 255, 255, 1);
-    transition: all 5s;
+    transition: all 500ms;
+
+    > h1 {
+      color: #f5f50a;
+      font-weight: 600;
+      font-size: 2.5em;
+      font-family: 'Distant Galaxy', sans-serif;
+      text-shadow: -3px 0 black;
+    }
+
+    > p {
+      margin: 3em;
+      text-align: justify;
+    }
+
   ` }
 `;
 
@@ -61,16 +91,18 @@ const Overlay = styled.div<OverlayProps>`
 
   ${({isShow}) => isShow && css`
     position: absolute;
+    overflow: auto;
     display: flex;
+    align-content: center;
     justify-content: center;
     align-items: center;
-    z-index: 20;
     width: 100%;
     height: 100%;
-    top: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    touch-action: none;
+    z-index: 20;
+    top: 0em;
+    bottom: 0em;
+    background-color: rgba(0, 0, 0, 0.6);
+    ransition: all 500ms;
   `}
 `;
 
@@ -108,23 +140,22 @@ const FilmPoster = (props: FilmPosterProps) => {
 
   return (
     <>
-    <Overlay isShow={expanded}>
-      <ActiveCard
+    <Overlay isShow={expanded}/>
+    <ActiveCard
         expanded={expanded}
         offsetLeft={x}
         offsetTop={y}
         onClick={handleExpandClick}
       >
+        <h1>{props.item.title}</h1>
+        <p>{props.item.opening_crawl}</p>
       </ActiveCard>
-    </Overlay>
     <Card 
       onClick={() => setExpanded(true)}
       expanded={expanded}
       ref={boxRef}
-    >
-      <p>{!expanded && props.item.title}</p>
-      <h2>X: {x ?? "No result"}</h2>
-      <h2>Y: {y ?? "No result"}</h2>
+      >
+        <h1>{props.item.title}</h1>
     </Card>
     </>
   );

@@ -44,6 +44,11 @@ const Info = styled.div`
   height: 100%;
   font-size: 2em;
   font-family: 'Invisible', sans-serif;
+
+  > a {
+    color: white;
+    text-decoration: none;
+  }
 `;
 
 
@@ -72,7 +77,7 @@ const InfoBar = () => {
         <a>Star Wars</a>
       </Logo>
       <Info>
-        <a>GitHub</a>
+        <a href='https://github.com/It-is-a-piece-of-cake' target='_blank'>GitHub</a>
       </Info>
     </Container>
   );

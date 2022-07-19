@@ -8,7 +8,6 @@ interface SlideProps  {
   isActive?: boolean,
   isLeft?: boolean,
   isRight?: boolean,
-
   cardTemplate?: string
 };
 
@@ -129,7 +128,7 @@ export const Slider = (props: SlideProps) => {
               isActive={isActive}
               isRight={isRight}
               isLeft={isLeft}
-              // key={index + "qwerty"}
+              key={i}
             >
               <Card
                 cardTemplate={props.cardTemplate} 
