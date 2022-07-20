@@ -8,7 +8,8 @@ import Films from './components/Films/Films';
 import InfoBar from './components/InfoBar/InfoBar';
 import img from './assets/images/space.jpg';
 import { getDevice } from './typescript/DeviceDetection/test';
-import StarshipsPage from './components/Starships/StarshipsPage';
+import StarshipsPage from './components/Starships';
+
 
 
 const Wrapper = styled.div`
