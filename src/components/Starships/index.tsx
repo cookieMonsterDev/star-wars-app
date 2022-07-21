@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
-import HoverTabs from './componets/HoverTabs';
+import HoverTabs from './components/HoverTabs';
 import { getData, Responce } from '../../typescript/getData'
-import Tab from './componets/Tab';
+import Tab from './components/Tab';
 
 
 const Container = styled.div`

@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { getData, Responce } from '../../../typescript/getData';
-import Tab from './Tab';
+
+const Animation = keyframes`
+  from {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+  }
+  to {
+    height: 50em;
+    width: 90%;
+    opacity: 1;
+  }
+ `;
 
 const Container = styled.div`
   margin: 0;
@@ -10,9 +22,9 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.6);
   height: 50em;
   width: 90%;
+  animation: ${Animation} 700ms;
 `;
 
 const Starship = styled.div`
@@ -27,10 +39,10 @@ const Starship = styled.div`
   background-color: rgba(0, 255, 255, 0.6);
 
   > h1 {
-    position: absolute;
-    bottom: 2em;
-    color: white;
-  }
+      position: absolute;
+      bottom: 2em;
+      color: white;
+    }
 
   &:hover {
     flex: 7;
@@ -53,7 +65,6 @@ const HoverTabs = () => {
     fetchStarships();
   }, []);
 
-
   const handleClick = (item: Responce) => {
     history.push(`${url}/${item.name?.toLocaleLowerCase().replace(/\s/g, '')}`);
   };
@@ -62,7 +73,7 @@ const HoverTabs = () => {
     <Container>
       {data.map((item: Responce, key: number) => {
         return (
-          <Starship 
+          <Starship
             key={key}
             onClick={() => handleClick(item)}
           >

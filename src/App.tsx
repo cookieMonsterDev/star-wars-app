@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Home from './components/Home/Home';
-import People from './components/People/People';
+import People from './components/People';
 import Films from './components/Films/Films';
 import InfoBar from './components/InfoBar/InfoBar';
 import img from './assets/images/space.jpg';

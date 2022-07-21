@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Responce } from '../../typescript/getData'
+import { Responce } from '../../../typescript/getData'
 
 
 const Container = styled.div`

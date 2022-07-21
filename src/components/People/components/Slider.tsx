@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { getData } from '../../typescript/getData';
-import { Card, CardProps } from '../Card/Card';
+import { getData } from '../../../typescript/getData';
+import { Card, CardProps } from './Card';
 
 interface SlideProps  {
   sliderType?: string,
