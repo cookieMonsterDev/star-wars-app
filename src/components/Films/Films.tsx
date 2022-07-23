@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getData, Responce } from '../../typescript/getData';
-import FilmPoster from './componets/FilmPoster';
+import FilmPoster from './components/FilmPoster';
 
 const Container = styled.div`
   position: absolute;

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { getData, Responce } from '../../../typescript/getData';
+import { Starships as images} from '../../../assets/images/films';
+import executor from '../../../assets/images/starships/executor.jpg';
 
 const Animation = keyframes`
   from {
@@ -36,7 +38,10 @@ const Starship = styled.div`
   flex: 0.5;
   border-radius: 3em;
   transition: all 500ms;
-  background-color: rgba(0, 255, 255, 0.6);
+  background-image: url(${executor});
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
 
   > h1 {
       position: absolute;
