@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { Responce } from '../../../typescript/getData';
+import CloseButton from '../../CloseButton';
 
 const Anim = keyframes`
   from {
@@ -30,9 +31,20 @@ const Container = styled.div`
   animation: ${Anim} 700ms;
 `;
 
+const CloseButtonWrapper = styled.div`
+  position: absolute;
+  right: 5em;
+  top: 2em;
+`;
+
 const Tab = (props: Responce) => {
   return (
     <Container>
+      <CloseButtonWrapper>
+        <CloseButton>
+          <Link to={'/starships'}/>
+        </CloseButton>
+      </CloseButtonWrapper>
       <div>
         <h1>{props.name}</h1>
         <Link to={'/starships'}>Link</Link>
