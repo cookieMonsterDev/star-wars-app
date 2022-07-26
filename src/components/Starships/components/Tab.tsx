@@ -47,7 +47,6 @@ const Tab = (props: Responce) => {
       </CloseButtonWrapper>
       <div>
         <h1>{props.name}</h1>
-        <Link to={'/starships'}>Link</Link>
       </div>
     </Container>
   );
