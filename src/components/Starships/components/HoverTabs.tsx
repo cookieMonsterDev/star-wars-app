@@ -8,6 +8,10 @@ interface StarshipProps {
   imageUrl?: any
 };
 
+interface SVGProps {
+  name?: string
+};
+
 const Animation = keyframes`
   from {
     height: 100%;
@@ -95,23 +99,28 @@ const Container = styled.div`
 //   }
 // `;
 
-const SVG = styled.div`
+const SVG = styled.div<SVGProps>`
   position: absolute;
   height: 50px;
   width: 50px;
-  bottom: 3em;
+  bottom: 2em;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: #bbb;
   transition: all 500ms;
 
+  font-size: 2em;
+  font-weight: 600;
+
   &:before {
-    content: 'NAME';
-    position: absolute;
-    width: 12em;
-  
-    background-color: red;
-    transform-origin: center;
+    content: '${(props => props.name)}';
+    position: relative;
+    display: flex;
+    width: 20em;
+    bottom: 2em;
+    left: 50%;
+    color: #FFFFFF;
+    transform-origin: 0 50%;
     transform: rotate(-90deg);
   }
  `;
@@ -135,7 +144,7 @@ const SVG = styled.div`
     transition: all 500ms;
 
     ${SVG} {
-      left: 16%;
+      left: 2em;
       transform-origin: center;
       transform: rotate(90deg);
     }
@@ -182,7 +191,7 @@ const HoverTabs = () => {
             imageUrl={url}
             onClick={() => handleClick(item)}
           >
-          <SVG></SVG>
+          <SVG name={item.name}></SVG>
           </Starship>
           )
         })}
