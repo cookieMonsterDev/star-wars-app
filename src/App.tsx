@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
@@ -7,10 +6,7 @@ import People from './components/People';
 import Films from './components/Films/Films';
 import InfoBar from './components/InfoBar/InfoBar';
 import img from './assets/images/space.jpg';
-import { getDevice } from './typescript/DeviceDetection/test';
 import StarshipsPage from './components/Starships';
-
-
 
 const Wrapper = styled.div`
   position: absolute;
@@ -27,8 +23,6 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-
-  getDevice();
 
   return (
       <Router>
@@ -50,7 +44,3 @@ function App() {
 }
 
 export default App;
-
-
-{/* <NavBar></NavBar>
-      <Slider cardTemplate={'Person'}/> */}

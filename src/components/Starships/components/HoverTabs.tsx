@@ -97,10 +97,7 @@ const Blazon = styled.img<BlazonProps>`
   background-position: center; 
   background-repeat: no-repeat;
   background-size: cover;
-
-  > h1 {
-    color: yellow;
-  }
+  cursor: pointer;
 
   &:hover {
     flex: 7;

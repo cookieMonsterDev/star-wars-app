@@ -21,6 +21,7 @@ const Clock = styled.div`
   height: 100%;
   font-size: 2em;
   font-family: 'Invisible', sans-serif;
+  user-select: none;
 `;
 
 const Logo = styled.div`
@@ -32,6 +33,7 @@ const Logo = styled.div`
   height: 100%;
   font-size: 2em;
   font-family: 'Distant Galaxy', sans-serif;
+  user-select: none;
 `;
 
 const Info = styled.div`

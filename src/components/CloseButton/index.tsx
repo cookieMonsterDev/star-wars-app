@@ -13,7 +13,7 @@ const Container = styled.div<CloseButtonProps>`
   align-items: center;
   width: 3em;
   height: 3em;
-  opacity: 0.5;
+  opacity: 0.7;
 
   > a {
     width: 100%;
@@ -26,7 +26,6 @@ const Container = styled.div<CloseButtonProps>`
     content: '';
     height: 3em;
     width: 0.4em;
-    opacity: 1;
     border-radius: 0.5em;
     background-color: ${((props) => props.buttonColor ? props.buttonColor : '#1b1b1b')};
   }
