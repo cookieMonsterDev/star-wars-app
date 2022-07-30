@@ -153,7 +153,7 @@ const HoverTabs = () => {
           if (i.name === name) {
             url = i.url;
             fraction = i.fraction;
-          }
+          };
         });
 
         return (

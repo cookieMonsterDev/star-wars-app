@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { Responce } from '../../../typescript/getData';
 import CloseButton from '../../CloseButton';
+import { Starships as images } from '../../../assets/images/starships/starships';
+
+interface ImgProps {
+  imgUrl?: any 
+};
 
 const Anim = keyframes`
   from {
@@ -19,14 +24,11 @@ const Anim = keyframes`
 
 const Container = styled.div`
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 65% 35%;
   overflow: auto;
   width: 100%;
   height: 100%;
-
-  background-color: white;
 
   animation: ${Anim} 700ms;
 `;
@@ -37,7 +39,32 @@ const CloseButtonWrapper = styled.div`
   top: 2em;
 `;
 
+const Img = styled.img<ImgProps>`
+  width: 100%;
+  height: 100%;
+  background-image: url(${(props => props.imgUrl)});
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+const InfoArea = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+`;
+
 const Tab = (props: Responce) => {
+
+  let imgUrl: any;
+
+  images.map((i) => {
+    const name = props.name?.toLocaleLowerCase().replace(/\s/g, '');
+      if (i.name === name) {
+        imgUrl = i.url;
+      };
+  });
+
   return (
     <Container>
       <CloseButtonWrapper>
@@ -45,9 +72,12 @@ const Tab = (props: Responce) => {
           <Link to={'/starships'}/>
         </CloseButton>
       </CloseButtonWrapper>
-      <div>
+
+      <Img imgUrl={imgUrl}/>
+
+      <InfoArea>
         <h1>{props.name}</h1>
-      </div>
+      </InfoArea>
     </Container>
   );
 };
