@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 interface CloseButtonProps {
+  buttonColor?: string,
   onClick?: () => void,
   children?: React.ReactNode
 };
 
-const Container = styled.div`
+const Container = styled.div<CloseButtonProps>`
   position: absolute;
   display: flex;
   justify-content: center;
@@ -25,9 +26,9 @@ const Container = styled.div`
     content: '';
     height: 3em;
     width: 0.4em;
-    opacity: 0.5;
+    opacity: 1;
     border-radius: 0.5em;
-    background-color: #1b1b1b;
+    background-color: ${((props) => props.buttonColor ? props.buttonColor : '#1b1b1b')};
   }
 
   &:before {
@@ -45,7 +46,7 @@ const Container = styled.div`
 
 const CloseButton = (props: CloseButtonProps) => {
   return (
-    <Container>
+    <Container buttonColor={props.buttonColor}>
       {props.children}
     </Container>
   );
