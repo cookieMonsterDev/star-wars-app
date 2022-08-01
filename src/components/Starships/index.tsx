@@ -5,6 +5,19 @@ import HoverTabs from './components/HoverTabs';
 import { getData, Responce } from '../../typescript/getData'
 import Tab from './components/Tab';
 
+interface ColorProps {
+  filterRebels: string,
+  filterEmpire: string,
+  textRebels: string,
+  textEmpire: string
+};
+
+export const Color: ColorProps = {
+  filterRebels: 'invert(37%) sepia(61%) saturate(6233%) hue-rotate(344deg) brightness(103%) contrast(98%)',
+  filterEmpire: 'invert(51%) sepia(74%) saturate(4060%) hue-rotate(192deg) brightness(99%) contrast(105%)',
+  textRebels: '#FF3333',
+  textEmpire: '#198CFF',
+};
 
 const Container = styled.div`
   position: absolute;

@@ -3,9 +3,9 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { getData, Responce } from '../../../typescript/getData';
 import { Starships as images } from '../../../assets/images/starships/starships';
-import rebels from '../../../assets/images/blazon/rebels.jpg'
-import empire from '../../../assets/images/blazon/empire.jpg'
-
+import rebels from '../../../assets/images/blazon/rebels.jpg';
+import empire from '../../../assets/images/blazon/empire.jpg';
+import { Color } from '../index';
 
 interface StarshipProps {
   imageUrl?: any
@@ -67,11 +67,6 @@ const Label = styled.div<LabelProps>`
     transform: rotate(-90deg);
   }
  `;
-
-const Color = {
-  red: 'invert(37%) sepia(91%) saturate(4716%) hue-rotate(343deg) brightness(101%) contrast(102%)',
-  blue: 'invert(48%) sepia(38%) saturate(1306%) hue-rotate(172deg) brightness(87%) contrast(82%)'
-};
 
 const Blazon = styled.img<BlazonProps>`
   position: absolute;
@@ -142,8 +137,7 @@ const HoverTabs = () => {
     <Container>
       {data.map((item: Responce, key: number) => {
 
-        let url: any;
-        let fraction: any;
+        let url: any, fraction: any;
 
         images.map((i) => {
           const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
@@ -157,13 +151,11 @@ const HoverTabs = () => {
           <Starship
             key={key}
             imageUrl={url}
-            onClick={() => handleClick(item)}
-          >
+            onClick={() => handleClick(item)}>
             <Label name={item.name}/>
             <Blazon 
               src={ fraction === 'rebels' ? rebels : empire}
-              blazonColor={ fraction === 'rebels' ? Color.red : Color.blue}
-            />
+              blazonColor={ fraction === 'rebels' ? Color.filterRebels : Color.filterEmpire}/>
           </Starship>
           )
         })}
