@@ -106,7 +106,7 @@ const Tab = (props: Responce) => {
   return (
     <Container>
       <CloseButtonWrapper>
-        <CloseButton buttonColor={'#FFE81F'}>
+        <CloseButton buttonColor={fraction === 'rebels' ? Color.textRebels : Color.textEmpire}>
           <Link to={'/starships'}/>
         </CloseButton>
       </CloseButtonWrapper>
