@@ -7,6 +7,7 @@ import Films from './components/Films/Films';
 import InfoBar from './components/InfoBar/InfoBar';
 import img from './assets/images/space.jpg';
 import StarshipsPage from './components/Starships';
+import Force from './components/Force';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -33,9 +34,8 @@ function App() {
             <Route path="/people" component={People}/>
             <Route path="/films" component={Films}/>
             <Route path="/starships" component={StarshipsPage}/>
-            <Route path="/vehicles" component={Films}/>
-            <Route path="/species" component={Films}/>
             <Route path="/planets" component={Films}/>
+            <Route path="/forceside" component={Force}/>
           </Switch>
           <InfoBar />
         </Wrapper>

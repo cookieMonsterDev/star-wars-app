@@ -66,17 +66,13 @@ const Parts = [
     url: '/starships',
   },
   {
-    title: 'vehicles',
-    url: '/vehicles',
-  },
-  {
-    title: 'species',
-    url: '/species',
-  },
-  {
     title: 'planets',
     url: '/planets',
-  }
+  },
+  {
+    title: 'Force side',
+    url: '/forceside',
+  },
 ];
 
 const NavBar = () => {
