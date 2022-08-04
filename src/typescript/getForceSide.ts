@@ -12,7 +12,7 @@ const Body = {
     "id": 1
 };
 
-export const getRandomNumber = async (): Promise<number | null> => {
+const getRandomNumber = async (): Promise<number | null> => {
   const URL = ''; // https://api.random.org/json-rpc/1/invoke
   const response = await fetch(URL, {
     method: 'POST',
@@ -30,6 +30,26 @@ export const getRandomNumber = async (): Promise<number | null> => {
   return data.result.random.data[0]
 }
 
-export const getForceSide = async () => {
+export const getForceSide = async (): Promise<string | undefined> => {
+  let num: number | null;
+  do {
+    num = await getRandomNumber()
+  } while ( num === 0 );
+
+  if (num) {
+
+    if ( num === 1) {
+      console.log('unique')
+      return 'unique';
+    };
   
+    if ( 1 < num && num <= 49 ) {
+      console.log('dark')
+      return 'dark';
+    };
+  
+    console.log('white')
+    return 'white';
+  }
+
 } 

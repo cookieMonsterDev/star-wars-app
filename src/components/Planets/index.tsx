@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getRandomNumber } from '../../typescript/getForceSide';
+import { getForceSide } from '../../typescript/getForceSide';
 
 const Container = styled.div`
   position: absolute;
@@ -24,14 +24,12 @@ const Planets = () => {
 
   useEffect(() => {
     async function getData() {
-      const Data = await getRandomNumber();
+      const Data = await getForceSide();
       setData(Data);
     }
   
     getData();
   }, [])
-
-  console.log(data)
 
   return (
     <Container>
