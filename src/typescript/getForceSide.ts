@@ -3,7 +3,7 @@ const Body = {
   "jsonrpc": "2.0",
     "method": "generateIntegers",
     "params": {
-        "apiKey": "d9b15e24-43cf-4339-988b-5de19106c02f",
+        "apiKey": "d9b15e24-43cf-4339-988b-5de19106c02f", // Random.org API key https://api.random.org/dashboard
         "n": 1,
         "min": 0,
         "max": 100,
@@ -13,7 +13,7 @@ const Body = {
 };
 
 const getRandomNumber = async (): Promise<number | null> => {
-  const URL = ''; // https://api.random.org/json-rpc/1/invoke
+  const URL = 'https://api.random.org/json-rpc/1/invoke'; // https://api.random.org/json-rpc/1/invoke
   const response = await fetch(URL, {
     method: 'POST',
     mode: 'cors', 
@@ -38,18 +38,19 @@ export const getForceSide = async (): Promise<string | undefined> => {
 
   if (num) {
 
-    if ( num === 1) {
-      console.log('unique')
-      return 'unique';
-    };
-  
-    if ( 1 < num && num <= 49 ) {
-      console.log('dark')
-      return 'dark';
-    };
-  
-    console.log('white')
-    return 'white';
-  }
+    switch (true) {
 
-} 
+      case num === 1:
+        console.log('unique')
+        return 'unique';
+
+      case 1 < num && num <= 49:
+        console.log('sith')
+        return 'sith';
+    
+      default: 
+        console.log('jedi')
+        return 'jedi';
+    };
+  };
+};

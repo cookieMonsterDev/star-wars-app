@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { getForceSide } from '../../typescript/getForceSide';
 
 const Container = styled.div`
   position: absolute;
@@ -16,13 +18,66 @@ const Container = styled.div`
   background-color: white;
 `;
 
+interface Test {
+  something: string
+};
+
+const Box = styled.div<Test>`
+  width: 100px;
+  height: 100px;
+  background-color: ${(props => props.something)}
+`
+
 const Force = () => {
 
-  // should return lightsaber color depends on random number
+  const [data, setData] = useState<string | undefined>('');
+  const [sith, setSith] = useState<boolean>(false);
+  const [jedi, setJedi] = useState<boolean>(false);
+  const [unique, setUnique ] = useState<boolean>(false);
+
+  let colo1: string = 'yellow';
+
+  const handleClick = async () => {
+    let value = await getForceSide();
+    setData(value);
+  };
+
+  // need refactor 
+
+  useEffect(() => {
+    setJedi(false);
+    setSith(false);
+    setUnique(false);
+
+    switch (true) {
+      case data === 'jedi':
+        setJedi(true);
+        if (jedi) {
+          colo1 = "blue";
+        } 
+        break;
+
+      case data === 'sith':
+        setSith(true);
+        if (sith) {
+          colo1 = "red";
+        } 
+        break;
+
+      default: 
+        setUnique(true);
+        if (unique) {
+          colo1 = "yellow";
+        } 
+        break;
+    };
+  }, [data]);
 
   return (
     <Container> 
-      
+      <button onClick={handleClick}> Click </button>
+      <div>{data}</div>
+      <Box something={colo1}/>
     </Container>
   );
 }
