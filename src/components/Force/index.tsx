@@ -45,32 +45,6 @@ const Force = () => {
   // need refactor 
 
   useEffect(() => {
-    setJedi(false);
-    setSith(false);
-    setUnique(false);
-
-    switch (true) {
-      case data === 'jedi':
-        setJedi(true);
-        if (jedi) {
-          colo1 = "blue";
-        } 
-        break;
-
-      case data === 'sith':
-        setSith(true);
-        if (sith) {
-          colo1 = "red";
-        } 
-        break;
-
-      default: 
-        setUnique(true);
-        if (unique) {
-          colo1 = "yellow";
-        } 
-        break;
-    };
   }, [data]);
 
   return (

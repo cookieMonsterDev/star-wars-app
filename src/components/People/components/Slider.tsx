@@ -8,6 +8,7 @@ interface SlideProps  {
   isActive?: boolean,
   isLeft?: boolean,
   isRight?: boolean,
+  isExpanded?: boolean,
   cardTemplate?: string
 };
 
@@ -35,8 +36,8 @@ const Slide = styled.div<SlideProps>`
   bottom: 0;
   left: 0;
   margin: auto;
-  width: 25em;
-  height: 35em;
+  width: 40em;
+  height: 56em;
   object-fit: cover;
   cursor: pointer;
   z-index: 0;
@@ -44,20 +45,26 @@ const Slide = styled.div<SlideProps>`
 
   transition: 500ms;
 
-  ${({isActive}) => isActive && css`
+  ${({isActive}) => isActive && css<SlideProps>`
     opacity: 1;
     transform: scale(1);
     z-index: 99;
+
+    ${({isExpanded}) => isExpanded && css`
+      opacity: 1;
+      width: 90em;
+      height: 56em;
+    `}
   `}
 
   ${({isLeft}) => isLeft && css`
-    transform: translateX(-125%) scale(0.8);
+    transform: translateX(-80%) scale(0.8);
     transition: 500ms;
     opacity: 0.3;
   `}
 
   ${({isRight}) => isRight && css`
-    transform: translateX(125%) scale(0.8);
+    transform: translateX(80%) scale(0.8);
     transition: 500ms;
     opacity: 0.3;
   `}
@@ -67,6 +74,7 @@ export const Slider = (props: SlideProps) => {
 
   const [index, setIndex] = useState(0);
   const [data, setData] = useState([]);
+  const [expanded, setExpanded] = useState(false);
 
   const mod = (n: any, m: any) => {
     let result = n % m;
@@ -92,6 +100,10 @@ export const Slider = (props: SlideProps) => {
     setIndex( index === 0 ? data.length - 1 : index - 1);
   };
 
+  const expand = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <>
       {/* <button onClick={prevSlide}> Prev </button>
@@ -114,6 +126,9 @@ export const Slider = (props: SlideProps) => {
           }
 
           const Click = () => {
+            if (i === index) {
+              return expand();
+            }
             if (i === indexRight) {
               return nextSlide();
             } 
@@ -128,6 +143,7 @@ export const Slider = (props: SlideProps) => {
               isActive={isActive}
               isRight={isRight}
               isLeft={isLeft}
+              isExpanded={expanded}
               key={i}
             >
               <Card
