@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { getData } from '../../../typescript/getData';
-import { Card, CardProps } from './Card';
+import { getData, Responce } from '../../../typescript/getData';
+import { People as images } from '../../../assets/images/people/people';
 
 interface SlideProps  {
   sliderType?: string,
@@ -12,7 +12,10 @@ interface SlideProps  {
   cardTemplate?: string
 };
 
-// Need to create different sliders for {sliderType}
+interface CardProps {
+  imageUrl?: any,
+  isExpanded?: boolean,
+};
 
 const Container = styled.div`
   margin: auto;
@@ -54,23 +57,57 @@ const Slide = styled.div<SlideProps>`
       opacity: 1;
       width: 90em;
       height: 56em;
+
+      ${Card} {
+        > h1 {
+          color: red;
+        }
+      }
     `}
   `}
 
   ${({isLeft}) => isLeft && css`
     transform: translateX(-80%) scale(0.8);
     transition: 500ms;
-    opacity: 0.5;
+    opacity: 0.6;
   `}
 
   ${({isRight}) => isRight && css`
     transform: translateX(80%) scale(0.8);
     transition: 500ms;
-    opacity: 0.5;
+    opacity: 0.6;
   `}
 `;
 
-export const Slider = (props: SlideProps) => {
+const Card = styled.div<CardProps>`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 2em;
+    background-image: url(${(props => props.imageUrl)});
+    background-position: top; 
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  > h1 {
+    position: absolute;
+    margin: 0;
+    bottom: 1em;
+    font-size: 3em;
+    font-family: 'Distant Galaxy', sans-serif;
+    color: #FFE81F;
+    text-shadow: -5px 0 black;
+  }
+`;
+
+export const Slider = () => {
 
   const [index, setIndex] = useState(0);
   const [data, setData] = useState([]);
@@ -110,7 +147,7 @@ export const Slider = (props: SlideProps) => {
       <button onClick={nextSlide}> Next </button> */}
     <Container>
     <Carousel>
-        {data.map((item: CardProps, i: number) => {
+        {data.map((item: Responce, i: number) => {
           const indexLeft = mod(index - 1, data.length);
           const indexRight = mod(index + 1, data.length);
           let isActive
@@ -137,6 +174,16 @@ export const Slider = (props: SlideProps) => {
             }
           }
 
+          let url: any, fraction: any;
+
+          images.map((i) => {
+            const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
+            if (i.name === name) {
+              url = i.url;
+              fraction = i.fraction;
+            };
+          });
+
           return (
             <Slide
               onClick={Click}
@@ -144,14 +191,14 @@ export const Slider = (props: SlideProps) => {
               isRight={isRight}
               isLeft={isLeft}
               isExpanded={expanded}
-              key={i}
-            >
+              key={i}>
               <Card
-                cardTemplate={props.cardTemplate} 
-                name={item.name}
-                created={item.created} 
-                edited={item.edited}
-              />
+                imageUrl={url}
+                isExpanded={expanded}>
+                  <div />
+                  <h1>{item.name}</h1>
+                
+              </Card>
             </Slide>
           );
         })}
