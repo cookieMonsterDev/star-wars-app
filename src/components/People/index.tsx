@@ -16,7 +16,7 @@ const Container = styled.div`
 function People() {
   return (
     <Container>
-      <Slider></Slider>
+      <Slider />
     </Container>
   );
 }

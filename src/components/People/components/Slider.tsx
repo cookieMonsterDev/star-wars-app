@@ -60,13 +60,13 @@ const Slide = styled.div<SlideProps>`
   ${({isLeft}) => isLeft && css`
     transform: translateX(-80%) scale(0.8);
     transition: 500ms;
-    opacity: 0.3;
+    opacity: 0.5;
   `}
 
   ${({isRight}) => isRight && css`
     transform: translateX(80%) scale(0.8);
     transition: 500ms;
-    opacity: 0.3;
+    opacity: 0.5;
   `}
 `;
 

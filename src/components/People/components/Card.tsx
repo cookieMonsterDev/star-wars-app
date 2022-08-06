@@ -1,46 +1,52 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { Responce } from '../../../typescript/getData'
-
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: green;
-
-  > svg {
-    width: 5em;
-    height: 5em;
-    border-radius: 50%;
-    background-color: red;
-  }
-
-  > ul {
-    margin: 0;
-    list-style-type: none;
-  }
-`;
+import { People as images } from '../../../assets/images/people/people';
 
 export interface CardProps extends Responce {
   cardTemplate?: string | undefined,
   isExpanded?: boolean,
 };
 
-// Need to create different Cards for {cardTemplate}
+interface ContainerProps {
+  imageUrl?: any
+};
+
+const Container = styled.div<ContainerProps>`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 2em;
+  background-image: url(${(props => props.imageUrl)});
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  > ul {
+    margin: 0;
+    list-style-type: none;
+    color: white;
+  }
+`;
 
 export const Card = (props: CardProps) => {
 
+  let url: any, fraction: any;
+
+  images.map((i) => {
+    const name = props.name?.toLocaleLowerCase().replace(/\s/g, '');
+    if (i.name === name) {
+      url = i.url;
+      fraction = i.fraction;
+    };
+  });
+
     return (
-      <Container>
-        <svg></svg>
+      <Container imageUrl={url}>
         <ul>
           <li>Name: {props.name}</li>
-          <li>{!props.created ? null : props.created.toLocaleString()}</li>
-          <li>{!props.edited ? null : props.edited.toLocaleString()}</li>
         </ul>
       </Container>
     )
