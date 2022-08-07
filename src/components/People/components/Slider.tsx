@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { getData, Responce } from '../../../typescript/getData';
 import { People as images } from '../../../assets/images/people/people';
 
@@ -16,6 +16,15 @@ interface CardProps {
   imageUrl?: any,
   isExpanded?: boolean,
 };
+
+const Anim = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const Container = styled.div`
   margin: auto;
@@ -54,15 +63,66 @@ const Slide = styled.div<SlideProps>`
     z-index: 99;
 
     ${({isExpanded}) => isExpanded && css`
-      opacity: 1;
-      width: 90em;
-      height: 56em;
+      background-color: rgba(12, 12, 12, 1);
+      width: 100%;
+      border-radius: 5em;
+      transition: all 500ms;
 
       ${Card} {
+        position: relative;
+        margin: auto;
+        display: flex;
+        width: 100%;
+        height: 100%;
+      
         > h1 {
-          color: red;
+          display: none;
         }
-      }
+      
+        > div:nth-child(2) {
+          margin: 3em 0 3em 3em;
+          position: absolute;
+          left: 0;          
+          width: 50em;
+          height: 50em;
+          border-radius: 50%;
+        }
+
+        > div:nth-child(3) {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          width: 42em;
+          height: 50em;
+          margin: 3em 3em 3em 0;
+          right: 0;
+          border-radius: 0;
+          background-image: none;
+    
+          animation: ${Anim} 2000ms;
+    
+          > h1 {
+            top: 1.5em;
+            left: 50%;
+            text-align: center;
+            font-size: 3em;
+            font-family: 'Distant Galaxy', sans-serif;
+            color: #FFE81F;
+          }
+
+          > ul {
+            padding: 1em 0 0 8em;
+            list-style-type: none;
+        
+            > li {
+              margin: 1em;
+              color: white;
+              font-size: 2em;
+              font-family: 'Invisible', sans-serif;
+            }
+          }
+        }
     `}
   `}
 
@@ -85,8 +145,23 @@ const Card = styled.div<CardProps>`
   justify-content: center;
   width: 100%;
   height: 100%;
+  transition: all 500ms;
 
-  > div {
+  > h1 {
+    position: absolute;
+    z-index: 10;
+    margin: 0;
+    bottom: 1em;
+    font-size: 3em;
+    font-family: 'Distant Galaxy', sans-serif;
+    color: #FFE81F;
+    text-shadow: -5px 0 black;
+
+    animation: ${Anim} 1000ms;
+  }
+
+  > div:nth-child(2) {
+    position: absolute;
     width: 100%;
     height: 100%;
     border-radius: 2em;
@@ -94,16 +169,11 @@ const Card = styled.div<CardProps>`
     background-position: top; 
     background-repeat: no-repeat;
     background-size: cover;
+    transition: all 500ms;
   }
 
-  > h1 {
-    position: absolute;
-    margin: 0;
-    bottom: 1em;
-    font-size: 3em;
-    font-family: 'Distant Galaxy', sans-serif;
-    color: #FFE81F;
-    text-shadow: -5px 0 black;
+  > div:nth-child(3) {
+    display: none;
   }
 `;
 
@@ -174,13 +244,12 @@ export const Slider = () => {
             }
           }
 
-          let url: any, fraction: any;
+          let url: any;
 
           images.map((i) => {
             const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
             if (i.name === name) {
               url = i.url;
-              fraction = i.fraction;
             };
           });
 
@@ -195,9 +264,20 @@ export const Slider = () => {
               <Card
                 imageUrl={url}
                 isExpanded={expanded}>
-                  <div />
                   <h1>{item.name}</h1>
-                
+                  <div />
+                  <div>
+                    <h1>{item.name}</h1>
+                    <ul>
+                      <li>Birth year: {item.birth_year}</li>
+                      <li>Gender: {item.gender}</li>
+                      <li>Eye color: {item.eye_color}</li>
+                      <li>Hair color: {item.hair_color}</li>
+                      <li>Skin color: {item.skin_color}</li>
+                      <li>Height: {item.height}</li>
+                      <li>Mass: {item.mass}</li>
+                    </ul>
+                  </div>
               </Card>
             </Slide>
           );
