@@ -177,6 +177,19 @@ const Card = styled.div<CardProps>`
   }
 `;
 
+const Test = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 10em;
+  height: 10em;
+
+  > svg {
+    width: 100%;
+    height: 100%;
+    border: 5px solid white;
+  }
+`
+
 export const Slider = () => {
 
   const [index, setIndex] = useState(0);
@@ -213,6 +226,11 @@ export const Slider = () => {
 
   return (
     <>
+    <Test>
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+    </Test>
       {/* <button onClick={prevSlide}> Prev </button>
       <button onClick={nextSlide}> Next </button> */}
     <Container>
