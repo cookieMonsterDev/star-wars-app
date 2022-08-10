@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { getData, Responce } from '../../../typescript/getData';
 import { People as images } from '../../../assets/images/people/people';
+import SlideButton from './SlideButton';
 
 interface SlideProps  {
   isActive?: boolean,
@@ -177,22 +178,6 @@ const Card = styled.div<CardProps>`
   }
 `;
 
-const PrevSlide = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 10em;
-  height: 10em;
-  background-color: red;
-`;
-
-const NextSlide = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 10em;
-  height: 10em;
-  background-color: red;
-`;
-
 export const Slider = () => {
 
   const [index, setIndex] = useState(0);
@@ -232,16 +217,12 @@ export const Slider = () => {
       {/* <button onClick={prevSlide}> Prev </button>
       <button onClick={nextSlide}> Next </button> */}
     <Container>
-      <PrevSlide>
-        
-      </PrevSlide>
+      <SlideButton onClick={prevSlide}/>
       <Carousel>
         {data.map((item: Responce, i: number) => {
+          let isActive, isRight, isLeft;
           const indexLeft = mod(index - 1, data.length);
           const indexRight = mod(index + 1, data.length);
-          let isActive
-          let isRight
-          let isLeft
 
           if (i === index) {
             isActive = true;
@@ -302,9 +283,7 @@ export const Slider = () => {
           );
         })}
       </Carousel>
-      <NextSlide>
-        
-      </NextSlide>
+      <SlideButton isRight={true} onClick={nextSlide}/>
     </Container>
     </>
   )  
