@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { getData, Responce } from '../../typescript/getData';
+import Card from './components/Card';
+import SlideButton from './components/SlideButton';
 
 interface SlideProps  {
   isActive?: boolean,
@@ -21,14 +23,14 @@ const Container = styled.div`
   width: 100%;
   top: 7em;
   bottom: 4em;
-
 `;
 
 const Carousel = styled.div`
-  width: 90em;
+  width: 100em;
   height: 56em;
   position: relative;
   overflow: hidden;
+  border-radius: 5em;
 `;
 
 const Slide = styled.div<SlideProps>`
@@ -41,25 +43,27 @@ const Slide = styled.div<SlideProps>`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  
-  background-color: red;
+  border-radius: 5em;
+  transition: 0s;
+  display: none;
 
   ${({isActive}) => isActive && css`
-    opacity: 1;
-    transition: 700ms;
+    display: flex;
+    z-index: 10;
+    transition: 800ms;
+    display: flex;
   `}
 
   ${({isLeft}) => isLeft && css`
-    opacity: 1;
+    display: flex;
     transform: translateX(-100%);
-    transition: 700ms;
+    transition: 800ms;
   `}
 
   ${({isRight}) => isRight && css`
-    opacity: 1;
+    display: flex;
     transform: translateX(100%);
-    transition: 700ms;
+    transition: 800ms;
   `}
 `;
 
@@ -93,7 +97,7 @@ const Planets = () => {
 
   return (
     <Container>
-      <button onClick={prevPlanet}>prev</button>
+      <SlideButton onClick={prevPlanet}/>
       <Carousel>
       {data.map((item: Responce, i: number) => {
         let isActive, isRight, isLeft;
@@ -114,11 +118,11 @@ const Planets = () => {
           isRight={isRight}
           isLeft={isLeft}
           key={i}>
-            {item.name}
+            <Card data={item}/>
         </Slide>)
       })}
       </Carousel>
-     <button onClick={nextPlanet}>next</button>
+      <SlideButton onClick={nextPlanet} isRight={true}/>
     </Container>
   );
 }
