@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { getData, Responce } from '../../typescript/getData';
+
+interface SlideProps  {
+  isActive?: boolean,
+  isLeft?: boolean,
+  isRight?: boolean,
+  isExpanded?: boolean,
+};
 
 const Container = styled.div`
   position: absolute;
@@ -14,38 +22,103 @@ const Container = styled.div`
   top: 7em;
   bottom: 4em;
 
-  background-color: white;
 `;
 
-const Test = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 500px;
-  height: 500px;
+const Carousel = styled.div`
+  width: 90em;
+  height: 56em;
+  position: relative;
+  overflow: hidden;
+`;
 
-  > svg {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    border: 5px solid white;
-  }
-`
+const Slide = styled.div<SlideProps>`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  
+  background-color: red;
+
+  ${({isActive}) => isActive && css`
+    opacity: 1;
+    transition: 700ms;
+  `}
+
+  ${({isLeft}) => isLeft && css`
+    opacity: 1;
+    transform: translateX(-100%);
+    transition: 700ms;
+  `}
+
+  ${({isRight}) => isRight && css`
+    opacity: 1;
+    transform: translateX(100%);
+    transition: 700ms;
+  `}
+`;
 
 const Planets = () => {
 
-  const [data, setData] = useState<any>('')
+  const [data, setData] = useState([]);
+  const [index, setIndex] = useState(0);
+
+  const mod = (n: any, m: any) => {
+    let result = n % m;
+
+    return result >= 0 ? result : result + m;
+  }
 
   useEffect(() => {
-  }, [])
+    async function fetchPlanets() {
+      const Data = await getData(5);
+      setData(Data);
+    }
+  
+    fetchPlanets();
+  },[])
+
+  const nextPlanet = () => {
+    setIndex( index === data.length - 1 ? 0 : index + 1);
+  };
+
+  const prevPlanet = () => {
+    setIndex( index === 0 ? data.length - 1 : index - 1);
+  };
 
   return (
     <Container>
-      <Test>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" fill="black" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M 200 400 L 400 0 L 600 0 L 400 400 L 600 800 L 400 800 Z"/>
-      </svg>
-      </Test>
+      <button onClick={prevPlanet}>prev</button>
+      <Carousel>
+      {data.map((item: Responce, i: number) => {
+        let isActive, isRight, isLeft;
+        const indexRight = mod(index - 1, data.length);
+        const indexLeft = mod(index + 1, data.length);
+
+        if (i === index) {
+          isActive = true;
+        } else if (i === indexRight) {
+          isRight = true;
+        } else if (i === indexLeft) {
+          isLeft = true;
+        }
+
+        return (
+        <Slide
+          isActive={isActive}
+          isRight={isRight}
+          isLeft={isLeft}
+          key={i}>
+            {item.name}
+        </Slide>)
+      })}
+      </Carousel>
+     <button onClick={nextPlanet}>next</button>
     </Container>
   );
 }

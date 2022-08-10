@@ -4,12 +4,10 @@ import { getData, Responce } from '../../../typescript/getData';
 import { People as images } from '../../../assets/images/people/people';
 
 interface SlideProps  {
-  sliderType?: string,
   isActive?: boolean,
   isLeft?: boolean,
   isRight?: boolean,
   isExpanded?: boolean,
-  cardTemplate?: string
 };
 
 interface CardProps {
@@ -28,16 +26,18 @@ const Anim = keyframes`
 
 const Container = styled.div`
   margin: auto;
-  width: 100em;
+  width: 100%;
   height: 50em;
   margin: auto;
   justify-content: center;
   align-items: center;
+  display: flex;
+  flex-direction: row;
 `;
 
 const Carousel = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100em;
+  height: 56em;
   position: relative;
 `;
 
@@ -177,18 +177,21 @@ const Card = styled.div<CardProps>`
   }
 `;
 
-const Test = styled.div`
+const PrevSlide = styled.div`
   display: flex;
   justify-content: center;
   width: 10em;
   height: 10em;
+  background-color: red;
+`;
 
-  > svg {
-    width: 100%;
-    height: 100%;
-    border: 5px solid white;
-  }
-`
+const NextSlide = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 10em;
+  height: 10em;
+  background-color: red;
+`;
 
 export const Slider = () => {
 
@@ -226,15 +229,13 @@ export const Slider = () => {
 
   return (
     <>
-    <Test>
-    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M15 18l-6-6 6-6"/>
-    </svg>
-    </Test>
       {/* <button onClick={prevSlide}> Prev </button>
       <button onClick={nextSlide}> Next </button> */}
     <Container>
-    <Carousel>
+      <PrevSlide>
+        
+      </PrevSlide>
+      <Carousel>
         {data.map((item: Responce, i: number) => {
           const indexLeft = mod(index - 1, data.length);
           const indexRight = mod(index + 1, data.length);
@@ -301,6 +302,9 @@ export const Slider = () => {
           );
         })}
       </Carousel>
+      <NextSlide>
+        
+      </NextSlide>
     </Container>
     </>
   )  
