@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import HoverTabs from './components/HoverTabs';
 import { getData, Responce } from '../../typescript/getData'

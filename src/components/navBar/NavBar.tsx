@@ -1,54 +1,13 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import './App.css';
 
-const Container = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 7em;
-  width: 100%;
-  background-color: #191919;
-`;
+interface PartsProps {
+  title: string;
+  url: string;
+};
 
-const Logo = styled.div`
-  position: relerive;
-  margin-left: 2em;
-  width: 3em;
-  height: 3em;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-
-  border-style: solid;
-  border-width: 0.2em;
-  border-radius: 25%;
-  border-color: yellow;
-`;
-
-const Page = styled.ul`
-  margin-right: 2em;
-  display: grid;
-  grid-template-columns: repeat(7, auto);
-  grid-gap: 1.5em;
-  list-style-type: none;
-  text-align: center;
-  justify-content: end;
-  font-weight: 600;
-  font-size: 2.5em;
-  font-family: 'Invisible', sans-serif;
-
-  > li > a {
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #FFE81F;
-  }
-`;
-
-const Parts = [
+const parts = [
   {
     title: 'home',
     url: '/',
@@ -70,28 +29,68 @@ const Parts = [
     url: '/planets',
   },
   {
-    title: 'Force side',
+    title: 'force side',
     url: '/forceside',
   },
 ];
 
+interface objProps {
+  isActive: string,
+  pages: PartsProps[]
+};
+
+let obj: objProps = {
+  isActive: 'home',
+  pages: parts
+};
+
 const NavBar = () => {
 
-  return (
-    <Container>
-      <Logo>
+  const [active, setActive] = useState<objProps>(obj);
+  const history = useHistory();
+  const location = useLocation();
 
-      </Logo>
-      <Page>
-        { Parts.map((item, key) => {return (
-          <li key={key}>
-            <Link to={item.url}>
-              {item.title}
-            </Link>
-          </li>
-        )})}
-      </Page>
-    </Container>
+  const replace = (str: string): string => {
+    return str.replace(/\s/g, '').replace('/', '');
+  };
+
+  const changeActive = (index: number) => {
+    setActive({...active, isActive: replace(active.pages[index].title)})
+  };
+
+  const changeActiveStyles = (index: number) => {
+    if (replace(active.pages[index].title) === active.isActive) {
+      return 'text active';
+    }
+    return 'text inactive';
+  };
+
+  useEffect(() => {
+    const path: string = history.location.pathname.replace('/', '');
+    setActive({...active, isActive: path ? path : 'home'});
+  }, []);
+
+  useEffect(() => {
+    const path: string = replace(history.location.pathname);
+    setActive({...active, isActive: path ? path : 'home'});
+  }, [location]);
+
+  return (
+    <div className='container'>
+      <div className='logo'/>
+      <ul className='page'>
+        { parts.map((item, index) => {return (
+            <li key={index}>
+              <Link 
+                to={item.url} 
+                className={changeActiveStyles(index)} 
+                onClick={() => changeActive(index)}>
+                {item.title}
+              </Link>
+            </li>
+          )})}
+      </ul>
+    </div>
   )
 };
 
