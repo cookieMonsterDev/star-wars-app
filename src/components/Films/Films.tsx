@@ -22,12 +22,19 @@ const Films = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    let subscribed = false;
     async function fetchPeople() {
       const Data = await getData(1);
-      setData(Data);
+      if (!subscribed) {
+        setData(Data);
+      };
     }
   
     fetchPeople();
+
+    return () => {
+      subscribed = true;
+    };
   }, [])
 
   return (

@@ -79,12 +79,19 @@ const Planets = () => {
   }
 
   useEffect(() => {
+    let subscribed = false;
     async function fetchPlanets() {
       const Data = await getData(5);
-      setData(Data);
-    }
+      if (!subscribed) {
+        setData(Data);
+      }
+    };
   
     fetchPlanets();
+
+    return () => {
+      subscribed = true;
+    };
   },[])
 
   const nextPlanet = () => {

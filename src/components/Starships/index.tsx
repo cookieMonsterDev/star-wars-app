@@ -36,12 +36,19 @@ const StarshipsPage = () => {
   const [subUrl, setSubUrl] = useState([]);
 
   useEffect(() => {
+    let subscribed = false;
     async function fetchURL() {
       const data = await getData(2);
-      setSubUrl(data);
+      if (!subscribed) {
+        setSubUrl(data);
+      };
     };
   
     fetchURL();
+
+    return () => {
+      subscribed = true;
+    };
   }, [])
 
   return (

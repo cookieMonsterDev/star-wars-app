@@ -192,12 +192,19 @@ export const Slider = () => {
   };
 
   useEffect(() => {
+    let subscribed = false;
     async function fetchPeople() {
       const Data = await getData(0);
-      setData(Data);
-    }
+      if (!subscribed) {
+        setData(Data);
+      };
+    };
   
     fetchPeople();
+
+    return () => {
+      subscribed = true;
+    };
   },[])
 
   const nextSlide = () => {

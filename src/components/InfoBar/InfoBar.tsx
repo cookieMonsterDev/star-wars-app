@@ -56,24 +56,36 @@ const Info = styled.div`
 
 const InfoBar = () => {
 
-  const [time, setTime] = useState('');
+  const [dots, setDots] = useState(true);
+  const [hours, setHours] = useState('');
+  const [minute, setMinute] = useState('');
 
   useEffect(() => {
 
-    setInterval(() => {
-      const CurrentTime = new Date().toLocaleString('en-US', 
-      { hour12: false, hour: 'numeric', minute: 'numeric', second: 'numeric' })
+    const timeInterval = setInterval(() => {
+      const currentTime = new Date();
+      const min = currentTime.getMinutes().toLocaleString();
+      const hours = currentTime.getHours().toLocaleString();
 
-      setTime(CurrentTime)
-
+      setMinute(prev => prev = (min.length === 1 ? 0 + min : min));
+      setHours(prev => prev = (hours.length === 1 ? 0 + hours : hours))
     }, 1000);
 
+    const dotsInterval = setInterval(() => {
+      setDots(prev => !prev);
+    }, 2000);
+
+    return () => {
+      clearInterval(timeInterval);
+      clearInterval(dotsInterval);
+    };
   }, []);
 
   return (
     <Container>
       <Clock>
-        <a>{time}</a>
+        {/* <a>{time}</a> */}
+        <a>{hours}{dots ? ':' : ' '}{minute}</a>
       </Clock>
       <Logo>
         <a>Star Wars</a>
