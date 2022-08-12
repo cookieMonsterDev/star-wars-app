@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { getData, Responce } from '../../typescript/getData';
+import AutoplaySetting from './components/AutoplaySetting';
 import Card from './components/Card';
 import SlideButton from './components/SlideButton';
 
@@ -71,6 +72,7 @@ const Planets = () => {
 
   const [data, setData] = useState([]);
   const [index, setIndex] = useState(0);
+  const [delay, setDelay] = useState<number>(5000); // miliseconds
 
   const mod = (n: any, m: any) => {
     let result = n % m;
@@ -92,15 +94,23 @@ const Planets = () => {
     return () => {
       subscribed = true;
     };
-  },[])
+  },[]);
 
   const nextPlanet = () => {
-    setIndex( index === data.length - 1 ? 0 : index + 1);
+    setIndex( prev => prev === data.length - 1 ? 0 : prev + 1);
   };
 
   const prevPlanet = () => {
-    setIndex( index === 0 ? data.length - 1 : index - 1);
+    setIndex( prev => prev === 0 ? data.length - 1 : prev - 1);
   };
+
+  useEffect(() => {
+    const autoplay = setInterval(nextPlanet, delay);
+
+    return () => {
+      clearInterval(autoplay);
+    }
+  }, [delay]);
 
   return (
     <Container>
@@ -130,6 +140,7 @@ const Planets = () => {
       })}
       </Carousel>
       <SlideButton onClick={nextPlanet} isRight={true}/>
+      <AutoplaySetting delay={delay} action={setDelay}/>
     </Container>
   );
 }
