@@ -17,10 +17,10 @@ const Container = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   align-content: center;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   width: 100%;
   top: 7em;
   bottom: 4em;
@@ -50,7 +50,6 @@ const Slide = styled.div<SlideProps>`
 
   ${({isActive}) => isActive && css`
     display: flex;
-    z-index: 10;
     transition: 800ms;
     display: flex;
   `}
@@ -68,11 +67,35 @@ const Slide = styled.div<SlideProps>`
   `}
 `;
 
+const AutoplaySettingWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0; 
+`;
+
+const AutoplaySettingButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 2em;
+  left: 2em;
+  opacity: 0.7;
+  transition: 300ms;
+
+  > svg {
+    width: 5em;
+    height: 5em;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
 const Planets = () => {
 
   const [data, setData] = useState([]);
   const [index, setIndex] = useState(0);
-  const [delay, setDelay] = useState<number>(5000); // miliseconds
+  const [delay, setDelay] = useState<number>(10000); // miliseconds
+  const [isOpen, setOpen] = useState<boolean>(false);
 
   const mod = (n: any, m: any) => {
     let result = n % m;
@@ -140,7 +163,24 @@ const Planets = () => {
       })}
       </Carousel>
       <SlideButton onClick={nextPlanet} isRight={true}/>
-      <AutoplaySetting delay={delay} action={setDelay}/>
+      <AutoplaySettingWrapper>
+        <AutoplaySetting 
+          delay={delay} 
+          setDelay={setDelay}
+          isOpen={isOpen}
+          setOpen={setOpen}/>
+      </AutoplaySettingWrapper>
+      <AutoplaySettingButtonWrapper onClick={() => setOpen(prev => !prev)}>
+        <svg 
+          viewBox="0 0 24 24" 
+          fill="none" stroke="white" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+      </AutoplaySettingButtonWrapper>
     </Container>
   );
 }
