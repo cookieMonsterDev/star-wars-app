@@ -95,7 +95,7 @@ const AutoplaySetting = (props: AutoplaySetting) => {
   const [number, setNumber] = useState<any>('');
 
   const handalClick = (number: number) => {
-    props.setDelay?.(number);
+    props.setDelay?.(number * 1000);
   };
 
   const time = props.delay ? props.delay / 1000 : null;
