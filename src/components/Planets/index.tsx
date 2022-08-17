@@ -51,7 +51,6 @@ const Slide = styled.div<SlideProps>`
   ${({isActive}) => isActive && css`
     display: flex;
     transition: 800ms;
-    display: flex;
   `}
 
   ${({isLeft}) => isLeft && css`
@@ -111,7 +110,7 @@ const Planets = () => {
         setData(Data);
       }
     };
-  
+    
     fetchPlanets();
 
     return () => {

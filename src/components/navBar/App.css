@@ -39,6 +39,11 @@
   font-family: 'Invisible', sans-serif;
 }
 
+.page li {
+  display: flex;
+  align-items: center;
+}
+
 .text {
   text-decoration: none;
   text-transform: uppercase;
