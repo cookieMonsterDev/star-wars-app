@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import styled, { keyframes} from 'styled-components';
+import styled, { keyframes, css} from 'styled-components';
 
 interface LightSaberProps {
   isSith?: boolean;
   isJedi?: boolean;
   isUnique?: boolean
   isOn?: boolean;
+  isGreen?: boolean;
 };
 
 const Container = styled.div<LightSaberProps>`
@@ -28,15 +28,63 @@ const Container = styled.div<LightSaberProps>`
   }
 `;
 
-const glow = keyframes`
+const glowD = keyframes`
     from {
-      box-shadow: 0 0 9px lime; 
+      box-shadow: 0 0 12px yellow; 
     }
     50% {
-      box-shadow: 0 0 18px lime; 
+      box-shadow: 0 0 23px yellow; 
     }
     to {
-      box-shadow: 0 0 9px lime; 
+      box-shadow: 0 0 9px yellow; 
+    }
+`;
+
+const glowP = keyframes`
+    from {
+      box-shadow: 0 0 12px pink; 
+    }
+    50% {
+      box-shadow: 0 0 23px pink; 
+    }
+    to {
+      box-shadow: 0 0 9px pink; 
+    }
+`;
+
+const glowB = keyframes`
+    from {
+      box-shadow: 0 0 12px blue; 
+    }
+    50% {
+      box-shadow: 0 0 23px blue; 
+    }
+    to {
+      box-shadow: 0 0 9px blue; 
+    }
+`;
+
+const glowR = keyframes`
+    from {
+      box-shadow: 0 0 12px red; 
+    }
+    50% {
+      box-shadow: 0 0 23px red; 
+    }
+    to {
+      box-shadow: 0 0 9px red; 
+    }
+`;
+
+const glowG = keyframes`
+    from {
+      box-shadow: 0 0 12px green; 
+    }
+    50% {
+      box-shadow: 0 0 23px green; 
+    }
+    to {
+      box-shadow: 0 0 9px green; 
     }
 `;
 
@@ -47,37 +95,38 @@ const Saber = styled.div<LightSaberProps>`
   width: 20px;
   height: 100%;
   background-color: yellow;
-  transition: all 500ms;
-  animation: ${glow} 3s linear infinite;
+  animation: ${glowD} 3s linear infinite;
 
-  ${({isOn}) => isOn && `transform: translateY(0)`}
+  ${({isSith}) => isSith && css`
+    background-color: red;
+    animation: ${glowR} 3s linear infinite;
+  `}
 
-  ${({isSith}) => isSith && `background-color: red;`}
+  ${({isJedi}) => isJedi && css<LightSaberProps>`
+    background-color: ${({isGreen}) => isGreen ? 'green' : 'blue'};
+    animation: ${({isGreen}) => isGreen ? glowG : glowB} 3s linear infinite;
+  `}
 
-  ${({isJedi}) => isJedi && `background-color: blue;`}
-
-  ${({isUnique}) => isUnique && `background-color: pink;`}
+  ${({isUnique}) => isUnique && css`
+    background-color: pink;
+    animation: ${glowP} 3s linear infinite;
+  `}
 `;
 
 const LightSaber = (props: LightSaberProps) =>  {
 
-  const[isOn, setOn] = useState<boolean>(true);
-
-  const handleClick = () => {
-    setOn(prev => !prev);
-  };
-
   return (
     <>
-    <Container isOn={isOn}>
+    <Container isOn={!props.isOn}>
       <div>
-      <Saber isSith={props.isSith}
+      <Saber
+        isGreen={props.isGreen} 
+        isSith={props.isSith}
         isJedi={props.isJedi}
         isUnique={props.isUnique}
         ></Saber>
       </div>
     </Container>
-    <button onClick={handleClick}> on / off</button>
     </>
   );
 }

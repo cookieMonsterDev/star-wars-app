@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import { useState } from 'react';
+import styled from 'styled-components';
 import { getForceSide } from '../../typescript/getForceSide';
 import LightSaber from './components/LightSaber';
 
@@ -20,30 +20,39 @@ const Container = styled.div`
 
 const Force = () => {
 
+  const TIMEOUT = 1000;
+
   const [isSith, setSith] = useState<boolean>(false);
   const [isJedi, setJedi] = useState<boolean>(false);
   const [isUnique, setUnique] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleClick = async () => {
+    setIsLoading(prev => prev = true);
     let value = await getForceSide();
 
-    if (value === 'unique') {
-      setSith(prev => prev = false);
-      setJedi(prev => prev = false);
-      setUnique(prev => prev = true);
-    };
-
-    if (value === 'sith') {
-      setSith(prev => prev = true);
-      setJedi(prev => prev = false);
-      setUnique(prev => prev = false);
-    };
-
-    if (value === 'jedi') {
-      setSith(prev => prev = false);
-      setJedi(prev => prev = true);
-      setUnique(prev => prev = false);
-    };
+    setTimeout(() => {
+      if (value === 'unique') {
+        setSith(prev => prev = false);
+        setJedi(prev => prev = false);
+        setUnique(prev => prev = true);
+        setIsLoading(prev => prev = false);
+      };
+  
+      if (value === 'sith') {
+        setSith(prev => prev = true);
+        setJedi(prev => prev = false);
+        setUnique(prev => prev = false);
+        setIsLoading(prev => prev = false);
+      };
+  
+      if (value === 'jedi') {
+        setSith(prev => prev = false);
+        setJedi(prev => prev = true);
+        setUnique(prev => prev = false);
+        setIsLoading(prev => prev = false);
+      };
+    }, TIMEOUT);
   };
 
   return (
@@ -51,7 +60,8 @@ const Force = () => {
       <LightSaber 
         isSith={isSith}
         isJedi={isJedi}
-        isUnique={isUnique}/>
+        isUnique={isUnique}
+        isOn={isLoading}/>
     <button onClick={handleClick}>Change state</button>
     </Container>
   );
