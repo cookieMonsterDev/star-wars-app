@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import HoverTabs from './components/HoverTabs';
-import { getData, Responce } from '../../typescript/getData'
+import { useFetch } from '../../typescript/getData'
 import Tab from './components/Tab';
+import { Responce } from '../../typescript/types';
 
 interface ColorProps {
   filterRebels: string,
@@ -33,29 +33,13 @@ const Container = styled.div`
 const StarshipsPage = () => {
 
   const { path, url } = useRouteMatch();
-  const [subUrl, setSubUrl] = useState([]);
-
-  useEffect(() => {
-    let subscribed = false;
-    async function fetchURL() {
-      const data = await getData(2);
-      if (!subscribed) {
-        setSubUrl(data);
-      };
-    };
-  
-    fetchURL();
-
-    return () => {
-      subscribed = true;
-    };
-  }, [])
+  const responce = useFetch(2);
 
   return (
     <Container>
       <Switch>
         <Route exact path={path}>{HoverTabs()}</Route>
-        { subUrl.map((item: Responce, key: number) => {return (
+        {responce && responce.map((item: Responce, key: number) => {return (
           <Route 
             path={`${url}/${item.name?.toLocaleLowerCase().replace(/\s/g, '')}`}
             key={key}

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getData, Responce } from '../../typescript/getData';
+import { useFetch } from '../../typescript/getData';
+import { Responce } from '../../typescript/types';
 import FilmPoster from './components/FilmPoster';
 
 const Container = styled.div`
@@ -19,27 +19,11 @@ const Container = styled.div`
 
 const Films = () => {
 
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    let subscribed = false;
-    async function fetchPeople() {
-      const Data = await getData(1);
-      if (!subscribed) {
-        setData(Data);
-      };
-    }
-  
-    fetchPeople();
-
-    return () => {
-      subscribed = true;
-    };
-  }, [])
+  const responce = useFetch(1);
 
   return (
     <Container>
-      { data.map((item: Responce, key: number) => {
+      { responce && responce.map((item: Responce, key: number) => {
         return (<FilmPoster item={item} key={key}/>)
       })}
     </Container>

@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { getData, Responce } from '../../../typescript/getData';
+import { useFetch } from '../../../typescript/getData';
 import { People as images } from '../../../assets/images/people/people';
 import SlideButton from './SlideButton';
+import { Responce } from '../../../typescript/types';
 
 interface SlideProps  {
   isActive?: boolean,
@@ -181,7 +182,7 @@ const Card = styled.div<CardProps>`
 export const Slider = () => {
 
   const [index, setIndex] = useState(0);
-  const [data, setData] = useState([]);
+  const responce = useFetch(0);
   const [expanded, setExpanded] = useState(false);
 
   const mod = (n: any, m: any) => {
@@ -191,28 +192,13 @@ export const Slider = () => {
     return result >= 0 ? result : result + m;
   };
 
-  useEffect(() => {
-    let subscribed = false;
-    async function fetchPeople() {
-      const Data = await getData(0);
-      if (!subscribed) {
-        setData(Data);
-      };
-    };
-  
-    fetchPeople();
-
-    return () => {
-      subscribed = true;
-    };
-  },[])
 
   const nextSlide = () => {
-    setIndex( index === data.length - 1 ? 0 : index + 1);
+    responce && setIndex( index === responce.length - 1 ? 0 : index + 1);
   };
 
   const prevSlide = () => {
-    setIndex( index === 0 ? data.length - 1 : index - 1);
+    responce && setIndex( index === 0 ? responce.length - 1 : index - 1);
   };
 
   const expand = () => {
@@ -226,10 +212,10 @@ export const Slider = () => {
     <Container>
       <SlideButton onClick={prevSlide}/>
       <Carousel>
-        {data.map((item: Responce, i: number) => {
+        {responce && responce.map((item: Responce, i: number) => {
           let isActive, isRight, isLeft;
-          const indexLeft = mod(index - 1, data.length);
-          const indexRight = mod(index + 1, data.length);
+          const indexLeft = mod(index - 1, responce.length);
+          const indexRight = mod(index + 1, responce.length);
 
           if (i === index) {
             isActive = true;

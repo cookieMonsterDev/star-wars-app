@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import { getData, Responce } from '../../../typescript/getData';
+import { useFetch } from '../../../typescript/getData';
 import { Starships as images } from '../../../assets/images/starships/starships';
 import rebels from '../../../assets/images/blazon/rebels.jpg';
 import empire from '../../../assets/images/blazon/empire.jpg';
 import { Color } from '../index';
+import { Responce } from '../../../typescript/types';
 
 interface StarshipProps {
   imageUrl?: any
@@ -117,16 +117,7 @@ const HoverTabs = () => {
 
   const { url } = useRouteMatch();
   const history = useHistory();
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    async function fetchStarships() {
-      const Data = await getData(2);
-      setData(Data);
-    };
-
-    fetchStarships();
-  }, []);
+  const responce = useFetch(2);
 
   const handleClick = (item: Responce) => {
     const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
@@ -135,7 +126,7 @@ const HoverTabs = () => {
 
   return (
     <Container>
-      {data.map((item: Responce, key: number) => {
+      {responce && responce.map((item: Responce, key: number) => {
 
         let url: any, fraction: any;
 

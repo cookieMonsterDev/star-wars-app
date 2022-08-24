@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { Responce } from '../../../typescript/getData';
+import { Responce } from '../../../typescript/types';
 
 interface FilmPosterProps {
   item: Responce,

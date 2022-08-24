@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import { Responce } from '../../../typescript/getData';
+import { Responce } from '../../../typescript/types';
 import CloseButton from '../../CloseButton';
 import { Starships as images } from '../../../assets/images/starships/starships';
 import rebels from '../../../assets/images/blazon/rebels.jpg';

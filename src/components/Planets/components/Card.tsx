@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Responce } from '../../../typescript/getData';
+import { Responce } from '../../../typescript/types';
 import { Planets as images } from '../../../assets/images/planets/planets';
 
 interface CardProps {

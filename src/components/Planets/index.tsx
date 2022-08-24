@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { getData, Responce } from '../../typescript/getData';
+import { useFetch } from '../../typescript/getData';
+import { Responce } from '../../typescript/types';
 import AutoplaySetting from './components/AutoplaySetting';
 import Card from './components/Card';
 import SlideButton from './components/SlideButton';
@@ -91,7 +92,7 @@ const AutoplaySettingButtonWrapper = styled.div`
 
 const Planets = () => {
 
-  const [data, setData] = useState([]);
+  const responce = useFetch(5);
   const [index, setIndex] = useState(0);
   const [delay, setDelay] = useState<number>(10000); // miliseconds
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -102,28 +103,12 @@ const Planets = () => {
     return result >= 0 ? result : result + m;
   }
 
-  useEffect(() => {
-    let subscribed = false;
-    async function fetchPlanets() {
-      const Data = await getData(5);
-      if (!subscribed) {
-        setData(Data);
-      }
-    };
-    
-    fetchPlanets();
-
-    return () => {
-      subscribed = true;
-    };
-  },[]);
-
   const nextPlanet = () => {
-    setIndex( prev => prev === data.length - 1 ? 0 : prev + 1);
+    responce && setIndex( prev => prev === responce.length - 1 ? 0 : prev + 1);
   };
 
   const prevPlanet = () => {
-    setIndex( prev => prev === 0 ? data.length - 1 : prev - 1);
+    responce && setIndex( prev => prev === 0 ? responce.length - 1 : prev - 1);
   };
 
   useEffect(() => {
@@ -138,10 +123,10 @@ const Planets = () => {
     <Container>
       <SlideButton onClick={prevPlanet}/>
       <Carousel>
-      {data.map((item: Responce, i: number) => {
+      {responce && responce.map((item: Responce, i: number) => {
         let isActive, isRight, isLeft;
-        const indexRight = mod(index - 1, data.length);
-        const indexLeft = mod(index + 1, data.length);
+        const indexRight = mod(index - 1, responce.length);
+        const indexLeft = mod(index + 1, responce.length);
 
         if (i === index) {
           isActive = true;
