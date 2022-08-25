@@ -8,6 +8,28 @@ interface AutoplaySetting {
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+const AutoplaySetting = (props: AutoplaySetting) => { 
+
+  const [number, setNumber] = useState<any>('');
+
+  const handalClick = (number: number) => {
+    props.setDelay?.(number * 1000);
+  };
+
+  const time = props.delay ? props.delay / 1000 : null;
+
+  return (
+    <Container isOpen={props.isOpen}>
+      <CloseButton onClick={() => props.setOpen?.(prev => !prev)}/>
+      <span>Autoplay slide swipe delay: {time} sec</span>
+      <input onChange={(e) => setNumber(e.target.value)}></input>
+      <button onClick={() => handalClick(number)}>Set number</button>
+    </Container>
+  );
+}
+
+export default AutoplaySetting;
+
 const Container = styled.div<AutoplaySetting>`
   display: flex;
   flex-direction: column;
@@ -89,25 +111,3 @@ const CloseButton = styled.div`
     opacity: 1;
   }
 `;
-
-const AutoplaySetting = (props: AutoplaySetting) => { 
-
-  const [number, setNumber] = useState<any>('');
-
-  const handalClick = (number: number) => {
-    props.setDelay?.(number * 1000);
-  };
-
-  const time = props.delay ? props.delay / 1000 : null;
-
-  return (
-    <Container isOpen={props.isOpen}>
-      <CloseButton onClick={() => props.setOpen?.(prev => !prev)}/>
-      <span>Autoplay slide swipe delay: {time} sec</span>
-      <input onChange={(e) => setNumber(e.target.value)}></input>
-      <button onClick={() => handalClick(number)}>Set number</button>
-    </Container>
-  );
-}
-
-export default AutoplaySetting;

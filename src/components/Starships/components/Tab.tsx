@@ -13,6 +13,49 @@ interface ContainerProps {
   textColor?: string 
 };
 
+const Tab = (props: Responce) => {
+
+  let imgUrl: any, fraction: any;;
+
+  images.map((i) => {
+    const name = props.name?.toLocaleLowerCase().replace(/\s/g, '');
+      if (i.name === name) {
+        imgUrl = i.url;
+        fraction = i.fraction;
+      };
+  });
+
+  return (
+    <Container>
+      <CloseButtonWrapper>
+        <CloseButton buttonColor={fraction === 'rebels' ? Color.textRebels : Color.textEmpire}>
+          <Link to={'/starships'}/>
+        </CloseButton>
+      </CloseButtonWrapper>
+      <Img imgUrl={imgUrl}/>
+      <InfoArea textColor={fraction === 'rebels' ? Color.textRebels : Color.textEmpire}>
+        <h1>{props.name}</h1>
+        <ul>
+          <li>{`Model: ${props.model}`}</li>
+          <li>{`Cost: ${props.cost_in_credits} credits`}</li>
+          <li>{`Consumables: ${props.consumables}`}</li>
+          <li>{`length: ${props.length} m.`}</li>
+          <li>{`Atmospher speed: ${props.max_atmosphering_speed}`}</li>
+          <li>{`Speed: ${props.MGLT} MGLT`}</li>
+          <li>{`Hyperdrive rating: ${props.hyperdrive_rating}`}</li>
+          <li>{`Crew: ${props.crew} people`}</li>
+          <li>{`Passengers: ${props.passengers} people`}</li>
+        </ul>
+        <Blazon 
+          src={ fraction === 'rebels' ? rebels : empire}
+          blazonColor={ fraction === 'rebels' ? Color.filterRebels : Color.filterEmpire}/>
+      </InfoArea>
+    </Container>
+  );
+};
+
+export default Tab;
+
 const Anim = keyframes`
   from {
     height: 40em;
@@ -90,46 +133,3 @@ const InfoArea = styled.div<ContainerProps>`
     }
   }
 `;
-
-const Tab = (props: Responce) => {
-
-  let imgUrl: any, fraction: any;;
-
-  images.map((i) => {
-    const name = props.name?.toLocaleLowerCase().replace(/\s/g, '');
-      if (i.name === name) {
-        imgUrl = i.url;
-        fraction = i.fraction;
-      };
-  });
-
-  return (
-    <Container>
-      <CloseButtonWrapper>
-        <CloseButton buttonColor={fraction === 'rebels' ? Color.textRebels : Color.textEmpire}>
-          <Link to={'/starships'}/>
-        </CloseButton>
-      </CloseButtonWrapper>
-      <Img imgUrl={imgUrl}/>
-      <InfoArea textColor={fraction === 'rebels' ? Color.textRebels : Color.textEmpire}>
-        <h1>{props.name}</h1>
-        <ul>
-          <li>{`Model: ${props.model}`}</li>
-          <li>{`Cost: ${props.cost_in_credits} credits`}</li>
-          <li>{`Consumables: ${props.consumables}`}</li>
-          <li>{`length: ${props.length} m.`}</li>
-          <li>{`Atmospher speed: ${props.max_atmosphering_speed}`}</li>
-          <li>{`Speed: ${props.MGLT} MGLT`}</li>
-          <li>{`Hyperdrive rating: ${props.hyperdrive_rating}`}</li>
-          <li>{`Crew: ${props.crew} people`}</li>
-          <li>{`Passengers: ${props.passengers} people`}</li>
-        </ul>
-        <Blazon 
-          src={ fraction === 'rebels' ? rebels : empire}
-          blazonColor={ fraction === 'rebels' ? Color.filterRebels : Color.filterEmpire}/>
-      </InfoArea>
-    </Container>
-  );
-};
-
-export default Tab;

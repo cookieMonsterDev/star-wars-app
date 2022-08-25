@@ -6,6 +6,21 @@ interface SlideButtonProps {
   onClick?: () => void
 };
 
+const SlideButton = (props: SlideButtonProps) => {
+  return (
+    <ButtonStyle 
+      isRight={props.isRight}
+      buttonColor={props.buttonColor ? props.buttonColor : 'white'}
+      onClick={props.onClick}>
+      <svg viewBox='0 0 600 1100'>
+        <path d='M 300 150 Q 350 50 500 50 L 400 550 L 500 1050 Q 350 1050 300 950 L 100 550 Z'/>
+      </svg>
+    </ButtonStyle>
+  );
+}
+
+export default SlideButton;
+
 const ButtonStyle = styled.div<SlideButtonProps>`
   display: flex;
   justify-content: center;
@@ -28,18 +43,3 @@ const ButtonStyle = styled.div<SlideButtonProps>`
     transform: rotate(180deg);
   `}
 `;
-
-const SlideButton = (props: SlideButtonProps) => {
-  return (
-    <ButtonStyle 
-      isRight={props.isRight}
-      buttonColor={props.buttonColor ? props.buttonColor : 'white'}
-      onClick={props.onClick}>
-      <svg viewBox='0 0 600 1100'>
-        <path d='M 300 150 Q 350 50 500 50 L 400 550 L 500 1050 Q 350 1050 300 950 L 100 550 Z'/>
-      </svg>
-    </ButtonStyle>
-  );
-}
-
-export default SlideButton;

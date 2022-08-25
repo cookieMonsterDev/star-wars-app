@@ -19,6 +19,64 @@ interface OverlayProps {
   isShow?: boolean
 };
 
+const FilmPoster = (props: FilmPosterProps) => {
+
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [x, setX] = useState<number>();
+  const [y, setY] = useState<number>();
+
+  const getPosition = () => {
+    if (boxRef.current !== null) {
+      const x = boxRef.current.offsetLeft;
+      setX(x);
+      const y = boxRef.current.offsetTop;
+      setY(y);
+    }
+  };
+
+  useEffect(() => {
+    getPosition();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', getPosition);
+
+    return () => {
+      window.removeEventListener('resize', getPosition);
+    }
+  }, []);
+
+   const handleExpandClick = () => {
+    setExpanded(!expanded)
+  };
+
+  return (
+    <>
+    <Overlay isShow={expanded}>
+      <ActiveCard
+          expanded={expanded}
+          offsetLeft={x}
+          offsetTop={y}
+          onClick={handleExpandClick}
+        >
+          <h1>{props.item.title}</h1>
+          <p>{props.item.opening_crawl}</p>
+      </ActiveCard>
+    </Overlay> 
+      <Card 
+        onClick={() => setExpanded(true)}
+        expanded={expanded}
+        ref={boxRef}
+        >
+          <h1>{props.item.title}</h1>
+      </Card>
+    </>
+  );
+}
+
+export default FilmPoster;
+
 const Card = styled.div<CardProps>`
   width: 40em;
   height: 25em;
@@ -91,74 +149,13 @@ const Overlay = styled.div<OverlayProps>`
 
   ${({isShow}) => isShow && css`
     position: absolute;
-    overflow: auto;
     display: flex;
-    align-content: center;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
     z-index: 20;
-    top: 0em;
-    bottom: 0em;
     background-color: rgba(0, 0, 0, 0.6);
-    ransition: all 500ms;
+    transition: all 500ms;
   `}
 `;
-
-const FilmPoster = (props: FilmPosterProps) => {
-
-  const boxRef = useRef<HTMLDivElement>(null);
-  const [expanded, setExpanded] = useState(false);
-  const [x, setX] = useState<number>();
-  const [y, setY] = useState<number>();
-
-  const getPosition = () => {
-    if (boxRef.current !== null) {
-      const x = boxRef.current.offsetLeft;
-      setX(x);
-      const y = boxRef.current.offsetTop;
-      setY(y);
-    }
-  };
-
-  useEffect(() => {
-    getPosition();
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('resize', getPosition);
-
-    return () => {
-      window.removeEventListener('resize', getPosition);
-    }
-  }, []);
-
-   const handleExpandClick = () => {
-    setExpanded(!expanded)
-  };
-
-  return (
-    <>
-    <Overlay isShow={expanded}/>
-    <ActiveCard
-        expanded={expanded}
-        offsetLeft={x}
-        offsetTop={y}
-        onClick={handleExpandClick}
-      >
-        <h1>{props.item.title}</h1>
-        <p>{props.item.opening_crawl}</p>
-      </ActiveCard>
-    <Card 
-      onClick={() => setExpanded(true)}
-      expanded={expanded}
-      ref={boxRef}
-      >
-        <h1>{props.item.title}</h1>
-    </Card>
-    </>
-  );
-}
-
-export default FilmPoster;

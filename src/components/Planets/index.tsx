@@ -13,83 +13,6 @@ interface SlideProps  {
   isExpanded?: boolean,
 };
 
-const Container = styled.div`
-  position: absolute;
-  overflow: auto;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  width: 100%;
-  top: 7em;
-  bottom: 4em;
-`;
-
-const Carousel = styled.div`
-  width: 100em;
-  height: 56em;
-  position: relative;
-  overflow: hidden;
-  border-radius: 5em;
-`;
-
-const Slide = styled.div<SlideProps>`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 5em;
-  transition: 0s;
-  display: none;
-
-  ${({isActive}) => isActive && css`
-    display: flex;
-    transition: 800ms;
-  `}
-
-  ${({isLeft}) => isLeft && css`
-    display: flex;
-    transform: translateX(-100%);
-    transition: 800ms;
-  `}
-
-  ${({isRight}) => isRight && css`
-    display: flex;
-    transform: translateX(100%);
-    transition: 800ms;
-  `}
-`;
-
-const AutoplaySettingWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0; 
-`;
-
-const AutoplaySettingButtonWrapper = styled.div`
-  position: absolute;
-  bottom: 2em;
-  left: 2em;
-  opacity: 0.7;
-  transition: 300ms;
-
-  > svg {
-    width: 5em;
-    height: 5em;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-
 const Planets = () => {
 
   const responce = useFetch(5);
@@ -170,3 +93,80 @@ const Planets = () => {
 }
 
 export default Planets;
+
+const Container = styled.div`
+  position: absolute;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  top: 7em;
+  bottom: 4em;
+`;
+
+const Carousel = styled.div`
+  width: 100em;
+  height: 56em;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5em;
+`;
+
+const Slide = styled.div<SlideProps>`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5em;
+  transition: 0s;
+  display: none;
+
+  ${({isActive}) => isActive && css`
+    display: flex;
+    transition: 800ms;
+  `}
+
+  ${({isLeft}) => isLeft && css`
+    display: flex;
+    transform: translateX(-100%);
+    transition: 800ms;
+  `}
+
+  ${({isRight}) => isRight && css`
+    display: flex;
+    transform: translateX(100%);
+    transition: 800ms;
+  `}
+`;
+
+const AutoplaySettingWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0; 
+`;
+
+const AutoplaySettingButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 2em;
+  left: 2em;
+  opacity: 0.7;
+  transition: 300ms;
+
+  > svg {
+    width: 5em;
+    height: 5em;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+`;

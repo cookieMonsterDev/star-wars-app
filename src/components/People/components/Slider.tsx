@@ -17,6 +17,107 @@ interface CardProps {
   isExpanded?: boolean,
 };
 
+export const Slider = () => {
+
+  const [index, setIndex] = useState(0);
+  const responce = useFetch(0);
+  const [expanded, setExpanded] = useState(false);
+
+  const mod = (n: any, m: any) => {
+    let result = n % m;
+
+    // Return a positive value
+    return result >= 0 ? result : result + m;
+  };
+
+
+  const nextSlide = () => {
+    responce && setIndex( index === responce.length - 1 ? 0 : index + 1);
+  };
+
+  const prevSlide = () => {
+    responce && setIndex( index === 0 ? responce.length - 1 : index - 1);
+  };
+
+  const expand = () => {
+    setExpanded(!expanded);
+  };
+
+  return (
+    <>
+    <Container>
+      <SlideButton onClick={prevSlide}/>
+      <Carousel>
+        {responce && responce.map((item: Responce, i: number) => {
+          let isActive, isRight, isLeft;
+          const indexLeft = mod(index - 1, responce.length);
+          const indexRight = mod(index + 1, responce.length);
+
+          if (i === index) {
+            isActive = true;
+          } else if (i === indexRight) {
+            isRight = true;
+          } else if (i === indexLeft) {
+            isLeft = true;
+          }
+
+          const Click = () => {
+            if (i === index) {
+              return expand();
+            }
+            if (i === indexRight) {
+              return nextSlide();
+            } 
+            else if (i === indexLeft) {
+              return prevSlide();
+            }
+          }
+
+          let url: any;
+
+          images.map((i) => {
+            const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
+            if (i.name === name) {
+              url = i.url;
+            };
+          });
+
+          return (
+            <Slide
+              onClick={Click}
+              isActive={isActive}
+              isRight={isRight}
+              isLeft={isLeft}
+              isExpanded={expanded}
+              key={i}>
+              <Card
+                imageUrl={url}
+                isExpanded={expanded}>
+                  <h1>{item.name}</h1>
+                  <div />
+                  <div>
+                    <h1>{item.name}</h1>
+                    <ul>
+                      <li>Birth year: {item.birth_year}</li>
+                      <li>Gender: {item.gender}</li>
+                      <li>Eye color: {item.eye_color}</li>
+                      <li>Hair color: {item.hair_color}</li>
+                      <li>Skin color: {item.skin_color}</li>
+                      <li>Height: {item.height}</li>
+                      <li>Mass: {item.mass}</li>
+                    </ul>
+                  </div>
+              </Card>
+            </Slide>
+          );
+        })}
+      </Carousel>
+      <SlideButton isRight={true} onClick={nextSlide}/>
+    </Container>
+    </>
+  )  
+};
+
 const Anim = keyframes`
   from {
     opacity: 0;
@@ -178,106 +279,3 @@ const Card = styled.div<CardProps>`
     display: none;
   }
 `;
-
-export const Slider = () => {
-
-  const [index, setIndex] = useState(0);
-  const responce = useFetch(0);
-  const [expanded, setExpanded] = useState(false);
-
-  const mod = (n: any, m: any) => {
-    let result = n % m;
-
-    // Return a positive value
-    return result >= 0 ? result : result + m;
-  };
-
-
-  const nextSlide = () => {
-    responce && setIndex( index === responce.length - 1 ? 0 : index + 1);
-  };
-
-  const prevSlide = () => {
-    responce && setIndex( index === 0 ? responce.length - 1 : index - 1);
-  };
-
-  const expand = () => {
-    setExpanded(!expanded);
-  };
-
-  return (
-    <>
-      {/* <button onClick={prevSlide}> Prev </button>
-      <button onClick={nextSlide}> Next </button> */}
-    <Container>
-      <SlideButton onClick={prevSlide}/>
-      <Carousel>
-        {responce && responce.map((item: Responce, i: number) => {
-          let isActive, isRight, isLeft;
-          const indexLeft = mod(index - 1, responce.length);
-          const indexRight = mod(index + 1, responce.length);
-
-          if (i === index) {
-            isActive = true;
-          } else if (i === indexRight) {
-            isRight = true;
-          } else if (i === indexLeft) {
-            isLeft = true;
-          }
-
-          const Click = () => {
-            if (i === index) {
-              return expand();
-            }
-            if (i === indexRight) {
-              return nextSlide();
-            } 
-            else if (i === indexLeft) {
-              return prevSlide();
-            }
-          }
-
-          let url: any;
-
-          images.map((i) => {
-            const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
-            if (i.name === name) {
-              url = i.url;
-            };
-          });
-
-          return (
-            <Slide
-              onClick={Click}
-              isActive={isActive}
-              isRight={isRight}
-              isLeft={isLeft}
-              isExpanded={expanded}
-              key={i}>
-              <Card
-                imageUrl={url}
-                isExpanded={expanded}>
-                  <h1>{item.name}</h1>
-                  <div />
-                  <div>
-                    <h1>{item.name}</h1>
-                    <ul>
-                      <li>Birth year: {item.birth_year}</li>
-                      <li>Gender: {item.gender}</li>
-                      <li>Eye color: {item.eye_color}</li>
-                      <li>Hair color: {item.hair_color}</li>
-                      <li>Skin color: {item.skin_color}</li>
-                      <li>Height: {item.height}</li>
-                      <li>Mass: {item.mass}</li>
-                    </ul>
-                  </div>
-              </Card>
-            </Slide>
-          );
-        })}
-      </Carousel>
-      <SlideButton isRight={true} onClick={nextSlide}/>
-    </Container>
-    </>
-  )  
-};

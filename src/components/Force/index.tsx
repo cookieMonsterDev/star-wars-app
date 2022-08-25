@@ -3,21 +3,6 @@ import styled from 'styled-components';
 import { getForceSide } from '../../typescript/getForceSide';
 import LightSaber from './components/LightSaber';
 
-const Container = styled.div`
-  position: absolute;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  top: 7em;
-  bottom: 4em;
-
-  background-color: white;
-`;
-
 const Force = () => {
 
   const TIMEOUT = 1000;
@@ -68,3 +53,18 @@ const Force = () => {
 }
 
 export default Force;
+
+const Container = styled.div`
+  position: absolute;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  top: 7em;
+  bottom: 4em;
+
+  background-color: white;
+`;

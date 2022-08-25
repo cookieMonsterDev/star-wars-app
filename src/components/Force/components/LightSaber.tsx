@@ -8,6 +8,26 @@ interface LightSaberProps {
   isGreen?: boolean;
 };
 
+const LightSaber = (props: LightSaberProps) =>  {
+
+  return (
+    <>
+    <Container isOn={!props.isOn}>
+      <div>
+      <Saber
+        isGreen={props.isGreen} 
+        isSith={props.isSith}
+        isJedi={props.isJedi}
+        isUnique={props.isUnique}
+        ></Saber>
+      </div>
+    </Container>
+    </>
+  );
+}
+
+export default LightSaber;
+
 const Container = styled.div<LightSaberProps>`
   position: relative;
   display: flex;
@@ -112,23 +132,3 @@ const Saber = styled.div<LightSaberProps>`
     animation: ${glowP} 3s linear infinite;
   `}
 `;
-
-const LightSaber = (props: LightSaberProps) =>  {
-
-  return (
-    <>
-    <Container isOn={!props.isOn}>
-      <div>
-      <Saber
-        isGreen={props.isGreen} 
-        isSith={props.isSith}
-        isJedi={props.isJedi}
-        isUnique={props.isUnique}
-        ></Saber>
-      </div>
-    </Container>
-    </>
-  );
-}
-
-export default LightSaber;

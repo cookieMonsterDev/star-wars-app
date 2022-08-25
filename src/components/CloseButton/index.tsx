@@ -6,6 +6,16 @@ interface CloseButtonProps {
   children?: React.ReactNode
 };
 
+const CloseButton = (props: CloseButtonProps) => {
+  return (
+    <Container buttonColor={props.buttonColor}>
+      {props.children}
+    </Container>
+  );
+};
+
+export default CloseButton;
+
 const Container = styled.div<CloseButtonProps>`
   position: absolute;
   display: flex;
@@ -42,13 +52,3 @@ const Container = styled.div<CloseButtonProps>`
     opacity: 1;
   }
 `;
-
-const CloseButton = (props: CloseButtonProps) => {
-  return (
-    <Container buttonColor={props.buttonColor}>
-      {props.children}
-    </Container>
-  );
-};
-
-export default CloseButton;

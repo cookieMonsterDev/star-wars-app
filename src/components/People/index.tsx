@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import { Slider } from './components/Slider'
 
+function People() {
+  return (
+    <Container>
+      <Slider />
+    </Container>
+  );
+}
+
+export default People;
+
 const Container = styled.div`
   position: absolute;
   display: flex;
@@ -11,13 +21,3 @@ const Container = styled.div`
   top: 7em;
   bottom: 4em;
 `;
-
-function People() {
-  return (
-    <Container>
-      <Slider />
-    </Container>
-  );
-}
-
-export default People;

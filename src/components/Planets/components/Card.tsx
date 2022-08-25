@@ -7,6 +7,41 @@ interface CardProps {
   url?: any,
 };
 
+const Card = (props: CardProps) => {
+
+  let url: any;
+
+  images.map((i) => {
+    const name = props.data?.name?.toLocaleLowerCase().replace(/\s/g, '');
+    if (i.name === name) {
+      return url = i.url;
+    }
+  });
+
+  return (
+    <Container>
+      <Style url={url}>
+        <div />
+        <div>
+          <h1>{props.data?.name}</h1>
+          <ul>
+            <li>{`Climate: ${props.data?.climate}`}</li>
+            <li>{`Terrain: ${props.data?.terrain}`}</li>
+            <li>{`Diameter: ${props.data?.diameter} km`}</li>
+            <li>{`Gravity: ${props.data?.gravity}`}</li>
+            <li>{`Orbital period: ${props.data?.orbital_period}`}</li>
+            <li>{`Rotation period: ${props.data?.rotation_period}`}</li>
+            <li>{`Population: ${props.data?.population}`}</li>
+            <li>{`Surface water: ${props.data?.surface_water}`}</li>
+          </ul>
+        </div>
+      </Style>
+    </Container>
+  );
+};
+
+export default Card;
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -60,38 +95,3 @@ const Style = styled.div<CardProps>`
     }
   }
 `;
-
-const Card = (props: CardProps) => {
-
-  let url: any;
-
-  images.map((i) => {
-    const name = props.data?.name?.toLocaleLowerCase().replace(/\s/g, '');
-    if (i.name === name) {
-      return url = i.url;
-    }
-  });
-
-  return (
-    <Container>
-      <Style url={url}>
-        <div />
-        <div>
-          <h1>{props.data?.name}</h1>
-          <ul>
-            <li>{`Climate: ${props.data?.climate}`}</li>
-            <li>{`Terrain: ${props.data?.terrain}`}</li>
-            <li>{`Diameter: ${props.data?.diameter} km`}</li>
-            <li>{`Gravity: ${props.data?.gravity}`}</li>
-            <li>{`Orbital period: ${props.data?.orbital_period}`}</li>
-            <li>{`Rotation period: ${props.data?.rotation_period}`}</li>
-            <li>{`Population: ${props.data?.population}`}</li>
-            <li>{`Surface water: ${props.data?.surface_water}`}</li>
-          </ul>
-        </div>
-      </Style>
-    </Container>
-  );
-};
-
-export default Card;

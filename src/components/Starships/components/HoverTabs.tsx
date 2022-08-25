@@ -19,6 +19,49 @@ interface BlazonProps {
   blazonColor?: string
 };
 
+const HoverTabs = () => {
+
+  const { url } = useRouteMatch();
+  const history = useHistory();
+  const responce = useFetch(2);
+
+  const handleClick = (item: Responce) => {
+    const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
+    history.push(`${url}/${name}`);
+  };
+
+  return (
+    <Container>
+      {responce && responce.map((item: Responce, key: number) => {
+
+        let url: any, fraction: any;
+
+        images.map((i) => {
+          const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
+          if (i.name === name) {
+            url = i.url;
+            fraction = i.fraction;
+          };
+        });
+
+        return (
+          <Starship
+            key={key}
+            imageUrl={url}
+            onClick={() => handleClick(item)}>
+            <Label name={item.name}/>
+            <Blazon 
+              src={ fraction === 'rebels' ? rebels : empire}
+              blazonColor={ fraction === 'rebels' ? Color.filterRebels : Color.filterEmpire}/>
+          </Starship>
+          )
+        })}
+    </Container>
+  );
+};
+
+export default HoverTabs;
+
 const Animation = keyframes`
   from {
     height: 100%;
@@ -111,47 +154,3 @@ const Blazon = styled.img<BlazonProps>`
     }
   }
 `;
-
-
-const HoverTabs = () => {
-
-  const { url } = useRouteMatch();
-  const history = useHistory();
-  const responce = useFetch(2);
-
-  const handleClick = (item: Responce) => {
-    const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
-    history.push(`${url}/${name}`);
-  };
-
-  return (
-    <Container>
-      {responce && responce.map((item: Responce, key: number) => {
-
-        let url: any, fraction: any;
-
-        images.map((i) => {
-          const name = item.name?.toLocaleLowerCase().replace(/\s/g, '');
-          if (i.name === name) {
-            url = i.url;
-            fraction = i.fraction;
-          };
-        });
-
-        return (
-          <Starship
-            key={key}
-            imageUrl={url}
-            onClick={() => handleClick(item)}>
-            <Label name={item.name}/>
-            <Blazon 
-              src={ fraction === 'rebels' ? rebels : empire}
-              blazonColor={ fraction === 'rebels' ? Color.filterRebels : Color.filterEmpire}/>
-          </Starship>
-          )
-        })}
-    </Container>
-  );
-};
-
-export default HoverTabs;
