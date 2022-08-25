@@ -119,8 +119,7 @@ const ActiveCard = styled.div<CardProps>`
   ${({expanded}) => expanded && css`
     z-index: 30;
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column; 
     align-items: center;
     top: 50%;
     left: 50%;
