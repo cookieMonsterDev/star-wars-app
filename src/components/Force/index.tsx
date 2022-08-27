@@ -11,6 +11,7 @@ const Force = () => {
   const [isJedi, setJedi] = useState<boolean>(false);
   const [isUnique, setUnique] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [label, setLabel] = useState<string>('');
 
   const handleClick = async () => {
     setIsLoading(prev => prev = true);
@@ -22,6 +23,7 @@ const Force = () => {
         setJedi(prev => prev = false);
         setUnique(prev => prev = true);
         setIsLoading(prev => prev = false);
+        setLabel(prev => prev = `You are ${value}`);
       };
   
       if (value === 'sith') {
@@ -29,6 +31,7 @@ const Force = () => {
         setJedi(prev => prev = false);
         setUnique(prev => prev = false);
         setIsLoading(prev => prev = false);
+        setLabel(prev => prev = `You are ${value}`);
       };
   
       if (value === 'jedi') {
@@ -36,18 +39,30 @@ const Force = () => {
         setJedi(prev => prev = true);
         setUnique(prev => prev = false);
         setIsLoading(prev => prev = false);
+        setLabel(prev => prev = `You are ${value}`);
       };
     }, TIMEOUT);
   };
 
   return (
-    <Container> 
-      <LightSaber 
-        isSith={isSith}
-        isJedi={isJedi}
-        isUnique={isUnique}
-        isOn={isLoading}/>
-    <button onClick={handleClick}>Change state</button>
+    <Container>
+      <LightSaberWrapperLeft>
+        <LightSaber 
+          isSith={isSith}
+          isJedi={isJedi}
+          isUnique={isUnique}
+          isOn={isLoading}/>
+      </LightSaberWrapperLeft>
+      <LightSaberWrapperRight>
+        <LightSaber 
+            isSith={isSith}
+            isJedi={isJedi}
+            isUnique={isUnique}
+            isOn={isLoading}
+            isGreen={true}/>
+      </LightSaberWrapperRight>
+      <Label>{label}</Label>
+    <Button onClick={handleClick}>Get your Force side</Button>
     </Container>
   );
 }
@@ -65,6 +80,45 @@ const Container = styled.div`
   width: 100%;
   top: 7em;
   bottom: 4em;
+`;
 
-  background-color: white;
+const Button = styled.button`
+  position: absolute;
+  bottom: 3em;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  margin-top: 5em;
+  width: 15em;
+  border-radius: 5em;
+  height: 2em;
+  font-size: 2em;
+  color: white;
+  background: black;
+  border: white 5px solid;
+  transition: all 700ms;
+
+  &:hover {
+    background: white;
+    color: black;
+  }
+`;
+
+const LightSaberWrapperLeft = styled.div`
+  position: absolute;
+  left: 30em;
+  transform: rotate(35deg);
+`;
+
+const LightSaberWrapperRight = styled.div`
+  position: absolute;
+  right: 30em;
+  transform: rotate(-35deg);
+`;
+
+const Label = styled.div`
+  color: white;
+  font-weight: 600;
+  font-size: 2.5em;
+  font-family: 'Invisible', sans-serif;
 `;
