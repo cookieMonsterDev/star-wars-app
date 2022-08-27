@@ -55,7 +55,7 @@ const NavBar = () => {
   };
 
   const changeActive = (index: number) => {
-    setActive({...active, isActive: replace(active.pages[index].title)})
+    setActive(prev => prev = {...active, isActive: replace(active.pages[index].title)})
   };
 
   const changeActiveStyles = (index: number) => {
@@ -67,17 +67,16 @@ const NavBar = () => {
 
   useEffect(() => {
     const path: string = history.location.pathname.replace('/', '');
-    setActive({...active, isActive: path ? path : 'home'});
-  }, []);
+    setActive(prev => prev = {...active, isActive: path ? path : 'home'});
+  }, [active, history.location.pathname]);
 
   useEffect(() => {
     const path: string = replace(history.location.pathname);
-    setActive({...active, isActive: path ? path : 'home'});
-  }, [location]);
+    setActive(prev => prev = {...active, isActive: path ? path : 'home'});
+  }, [location, active, history.location.pathname]);
 
   return (
     <div className='container'>
-      <div className='logo'/>
       <ul className='page'>
         { parts.map((item, index) => {return (
             <li key={index}>

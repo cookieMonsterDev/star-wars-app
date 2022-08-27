@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { getForceSide } from '../../typescript/getForceSide';
 import LightSaber from './components/LightSaber';
 
+interface Anim {
+  isLoading?: boolean;
+};
+
 const Force = () => {
 
   const TIMEOUT = 1000;
@@ -61,7 +65,7 @@ const Force = () => {
             isOn={isLoading}
             isGreen={true}/>
       </LightSaberWrapperRight>
-      <Label>{label}</Label>
+      <Label isLoading={isLoading}>{!isLoading && label}</Label>
     <Button onClick={handleClick}>Get your Force side</Button>
     </Container>
   );
@@ -116,9 +120,13 @@ const LightSaberWrapperRight = styled.div`
   transform: rotate(-35deg);
 `;
 
-const Label = styled.div`
+const Label = styled.div<Anim>`
   color: white;
+  opacity: 0;
   font-weight: 600;
   font-size: 2.5em;
   font-family: 'Invisible', sans-serif;
+  transition: all 2000ms;
+  
+  ${({isLoading}) => !isLoading && `opacity: 1;`}
 `;

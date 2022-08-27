@@ -4,12 +4,11 @@ const Home = () => {
   return (
     <Container>
       <Text>
-      <p>Hi my name is Mike</p>
-      <h1>Im someone</h1>
-  
-      <p>It is a period of civil war. Rebel spaceships, 
-        striking from a hidden base, have won their first 
-        victory against the evil Galactic Empire.
+      <h1>Hi, I'm Mykhailo</h1>
+      <p>Im the beginer JS developer, that simple App is based on SWAPI. 
+        The App does only severl things, get data from SAWPI and displays it 
+        within React. Also there is an option to get your Force side using random.org API.  
+        
       </p>
       </Text>
     </Container>
@@ -33,5 +32,20 @@ const Container = styled.div`
 `;
 
 const Text = styled.div`
+  width: 60em;
   color: white;
+
+  > h1 {
+    letter-spacing: 2px;
+    font-size: 3em;
+    font-family: 'Distant Galaxy', sans-serif;
+    user-select: none;
+  }
+
+  > p {
+    text-align: justify;
+    font-weight: 400;
+    font-size: 2em;
+    font-family: 'Invisible', sans-serif;
+  }
 `;
