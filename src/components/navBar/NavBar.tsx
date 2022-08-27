@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './App.css';
 
 interface PartsProps {
@@ -48,7 +48,6 @@ const NavBar = () => {
 
   const [active, setActive] = useState<objProps>(obj);
   const history = useHistory();
-  const location = useLocation();
 
   const replace = (str: string): string => {
     return str.replace(/\s/g, '').replace('/', '');
@@ -67,13 +66,9 @@ const NavBar = () => {
 
   useEffect(() => {
     const path: string = history.location.pathname.replace('/', '');
-    setActive(prev => prev = {...active, isActive: path ? path : 'home'});
-  }, [active, history.location.pathname]);
-
-  useEffect(() => {
-    const path: string = replace(history.location.pathname);
-    setActive(prev => prev = {...active, isActive: path ? path : 'home'});
-  }, [location, active, history.location.pathname]);
+    const newActive = {...obj, isActive: path ? path : 'home'};
+    setActive(prev => prev = newActive);
+  }, [history.location.pathname]);
 
   return (
     <div className='container'>

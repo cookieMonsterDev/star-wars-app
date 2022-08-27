@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { getForceSide } from '../../typescript/getForceSide';
 import LightSaber from './components/LightSaber';
-
+import { INIT_STATE, saberReducer } from './components/saberReducer';
+ 
 interface Anim {
   isLoading?: boolean;
 };
@@ -11,37 +12,30 @@ const Force = () => {
 
   const TIMEOUT = 1000;
 
-  const [isSith, setSith] = useState<boolean>(false);
-  const [isJedi, setJedi] = useState<boolean>(false);
-  const [isUnique, setUnique] = useState<boolean>(false);
+  const [state, dispatch] = useReducer(saberReducer, INIT_STATE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [label, setLabel] = useState<string>('');
 
   const handleClick = async () => {
+    dispatch('');
     setIsLoading(prev => prev = true);
     let value = await getForceSide();
-
+  
     setTimeout(() => {
       if (value === 'unique') {
-        setSith(prev => prev = false);
-        setJedi(prev => prev = false);
-        setUnique(prev => prev = true);
+        dispatch(value);
         setIsLoading(prev => prev = false);
         setLabel(prev => prev = `You are ${value}`);
       };
   
       if (value === 'sith') {
-        setSith(prev => prev = true);
-        setJedi(prev => prev = false);
-        setUnique(prev => prev = false);
+        dispatch(value);
         setIsLoading(prev => prev = false);
         setLabel(prev => prev = `You are ${value}`);
       };
   
       if (value === 'jedi') {
-        setSith(prev => prev = false);
-        setJedi(prev => prev = true);
-        setUnique(prev => prev = false);
+        dispatch(value);
         setIsLoading(prev => prev = false);
         setLabel(prev => prev = `You are ${value}`);
       };
@@ -52,16 +46,16 @@ const Force = () => {
     <Container>
       <LightSaberWrapperLeft>
         <LightSaber 
-          isSith={isSith}
-          isJedi={isJedi}
-          isUnique={isUnique}
+          isSith={state.isSith}
+          isJedi={state.isJedi}
+          isUnique={state.isUnique}
           isOn={isLoading}/>
       </LightSaberWrapperLeft>
       <LightSaberWrapperRight>
         <LightSaber 
-            isSith={isSith}
-            isJedi={isJedi}
-            isUnique={isUnique}
+            isSith={state.isSith}
+            isJedi={state.isJedi}
+            isUnique={state.isUnique}
             isOn={isLoading}
             isGreen={true}/>
       </LightSaberWrapperRight>
