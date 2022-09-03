@@ -22,7 +22,7 @@ const AutoplaySetting = (props: AutoplaySetting) => {
     <Container isOpen={props.isOpen}>
       <CloseButton onClick={() => props.setOpen?.(prev => !prev)}/>
       <span>Autoplay slide swipe delay: {time} sec</span>
-      <input onChange={(e) => setNumber(e.target.value)}></input>
+      <input onChange={(e) => setNumber(e.target.value)} pattern='[0-9]{1,}'/>
       <button onClick={() => handalClick(number)}>Set number</button>
     </Container>
   );

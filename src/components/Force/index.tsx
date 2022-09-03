@@ -17,24 +17,26 @@ const Force = () => {
   const [label, setLabel] = useState<string>('');
 
   const handleClick = async () => {
-    dispatch('');
     setIsLoading(prev => prev = true);
     let value = await getForceSide();
   
     setTimeout(() => {
       if (value === 'unique') {
+        dispatch('');
         dispatch(value);
         setIsLoading(prev => prev = false);
         setLabel(prev => prev = `You are ${value}`);
       };
   
       if (value === 'sith') {
+        dispatch('');
         dispatch(value);
         setIsLoading(prev => prev = false);
         setLabel(prev => prev = `You are ${value}`);
       };
   
       if (value === 'jedi') {
+        dispatch('');
         dispatch(value);
         setIsLoading(prev => prev = false);
         setLabel(prev => prev = `You are ${value}`);

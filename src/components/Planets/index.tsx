@@ -17,7 +17,7 @@ const Planets = () => {
 
   const responce = useFetch(5);
   const [index, setIndex] = useState(0);
-  const [delay, setDelay] = useState<number>(10000); // miliseconds
+  const [delay, setDelay] = useState<number>(3000); // miliseconds
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const mod = (n: any, m: any) => {
@@ -40,7 +40,7 @@ const Planets = () => {
     return () => {
       clearInterval(autoplay);
     }
-  }, [delay]);
+  });
 
   return (
     <Container>

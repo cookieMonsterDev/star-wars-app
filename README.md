@@ -30,7 +30,6 @@ info about person
 
 <img src="public/assets/people.gif"/>
 
-
 ### Films Cards
 
 The simple cards that can be extended on click with film a 
@@ -38,10 +37,21 @@ description
 
 <img src="public/assets/films.gif"/>
 
-
 ### Starships Hover Tabs
 
 The batch on cards that extends on hover. With click on card
 user redirects to starship tab with additional info about starship
 
 <img src="public/assets/starships.gif"/>
+
+### Planets autoplay slider
+
+The simple slider with configurable autoplay delay 
+
+<img src="public/assets/planets.gif"/>
+
+### Find out your force side 
+
+The feature is based on Random.org API, that helps to define your force side.
+
+<img src="public/assets/force.gif"/>
