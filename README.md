@@ -1,6 +1,6 @@
-# Star-Wars-API
+# Star-Wars-APP
 
-The Star Wars API app is a simple project that uses React to display
+The Star Wars APP app is a simple project that uses React to display
 data that app resive from [SWAPI](https://swapi.dev/). 
 
 ## Built With
